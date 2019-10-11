@@ -14,17 +14,19 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ContactPage } from '../pages/contact/contact';
 import { PaymentPage } from '../pages/payment/payment';
 import { PaymentsccessPage } from '../pages/paymentsccess/paymentsccess';
+import { InterceptorProvider } from '../providers/interceptor/interceptor';
 // import { SubscriptionPage } from '../pages/subscription/subscription';
 import { GalleryPage } from '../pages/gallery/gallery';
 import { ContentpagesPage } from '../pages/contentpages/contentpages';
 import { DetailPage } from '../pages/detail/detail';
-
+import { SubDetailPage } from '../pages/sub-detail/sub-detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,  HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { ApiProvider } from '../providers/api/api';
 import { Toast } from '@ionic-native/toast';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -44,12 +46,14 @@ import { Toast } from '@ionic-native/toast';
     // SubscriptionPage,
     GalleryPage,
     ContentpagesPage,
-    DetailPage
+    DetailPage,
+    SubDetailPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -68,12 +72,14 @@ import { Toast } from '@ionic-native/toast';
     // SubscriptionPage,
     GalleryPage,
     ContentpagesPage,
-    DetailPage
+    DetailPage,
+    SubDetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
     ApiProvider,
     Toast
   ]

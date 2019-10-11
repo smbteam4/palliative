@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Item, ToastController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { Toast } from '@ionic-native/toast';
+import { VerificationPage } from '../verification/verification';
 
 /**
  * Generated class for the SignupPage page.
@@ -18,8 +19,10 @@ import { Toast } from '@ionic-native/toast';
 export class SignupPage {
   user:any={};
   isInvalid = false;
+  rootPage:any;
   message = "";
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, private toast: Toast) {
+    this.rootPage = ''
   }
 
   ionViewDidLoad() {
@@ -35,8 +38,14 @@ export class SignupPage {
     this.isInvalid = this.checkFormNow();
     // console.log(this.isInvalid, 'this.isInvalid');
     if(!this.isInvalid) {
-      this.apiProvider._post('users/register',this.user).subscribe((result)=>{
-        // console.log('here on register')
+      this.apiProvider.common_post('register',this.user).subscribe((result)=>{
+        if(result.body.status == true){
+          this.navCtrl.push(VerificationPage,{
+            email:this.user.email
+          });
+
+        }
+       
       })
     } else {
       // console.log('here no entry')

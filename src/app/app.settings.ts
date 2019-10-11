@@ -9,6 +9,7 @@ export class AppSettings {
   public static api_url="http://10.10.10.130:5050/";
   public static toast_delay ="5000";
   public static toast_position = 'center';
+  public static Loading_text ="Please Wait"
 //public static api_url="https://matrix.uspowersavers.com:7576/";  //live
 // public static api_url = "http://50.18.195.209:7575/";  
 // public static api_url = "https://dev.uspowersavers.com:7576/";  //develop (live)

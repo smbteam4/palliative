@@ -30,7 +30,7 @@ export class MyApp {
   rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
-
+  isLoggedIn:any;
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
@@ -47,6 +47,9 @@ export class MyApp {
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: LoginPage },
     ];
+   
+    console.log(localStorage.getItem('loggedIn'),'loggedin')
+    this.isLoggedIn = (localStorage.getItem('loggedIn') == 'true')? true:false;
 
   }
 
@@ -57,18 +60,37 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+    // console.log(this.isLoggedIn,'this.isLoggedIn');
+    // this.isLoggedIn = (localStorage.getItem('loggedIn') == 'true')? true:false;
+    
   }
+
+  
+  
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    // console.log('here in home... 12434',page.title)
+  // console.log('here in home... 12434',page.title)
     if(page.title == 'Home'){
       // console.log('here in home... 12434')
       this.nav.setRoot(page.component);
-    } else {
+    } else if(page.title == 'Logout'){
+      this.logout();
+    }else {
       this.nav.push(page.component);
     }
    
+  }
+
+  
+
+  logout(){
+    // console.log('hereeeee');
+    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('loggedIn');
+    this.nav.setRoot(LoginPage);
   }
 }

@@ -23,13 +23,15 @@ import { Toast } from '@ionic-native/toast';
 export class LoginPage {
   loginForm: FormGroup;
   submitAttempted: boolean = false;
-
+  isLoggedIn:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, private toast: Toast) {
     this.loginForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-      password: ['', Validators.required],
-      // age: ['value', *validation function goes here*, *asynchronous validation function goes here*]
-  });
+        password: ['', Validators.required],
+        // age: ['value', *validation function goes here*, *asynchronous validation function goes here*]
+    });
+
+    this.isLoggedIn = (localStorage.getItem('loggedIn') == 'true')? true:false;
     // this.loginForm = fb.group({
     //   email: fb.control('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])),
     //   password: ['', Validators.required]
@@ -37,14 +39,24 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    // console.log('ionViewDidLoad LoginPage');
+    // console.log('ionViewDidLoad VerificationPage');
+    this.setCurPage();
   }
 
   login(){
     this.submitAttempted = true;
-    console.log(this.loginForm.value,'credentialsss')
-    // alert('haiiiiii');
-    // this.navCtrl.setRoot(HomePage);
+    console.log(this.loginForm.value,'test 123456')
+    let data = this.loginForm.value;
+    this.apiProvider.common_post('authenticate',data).subscribe((result)=>{
+      if(result.body.status == true) {
+        this.navCtrl.setRoot(HomePage);
+        localStorage.setItem('user',JSON.stringify(result.body.user));
+        localStorage.setItem('loggedIn','true');
+        localStorage.setItem('x-access-token',JSON.stringify(result.body.userToken))
+      } else {
+        alert(result.body.message)
+      }
+    })
   }
 
   forgotPassword(){
@@ -56,6 +68,13 @@ export class LoginPage {
   signupNow(){
     // alert('haiiiiii');
     this.navCtrl.push(SignupPage);
+  }
+
+  setCurPage(){
+    if(this.isLoggedIn) {
+      // console.log('heereeeeeeee')
+      this.navCtrl.setRoot(HomePage);
+    }
   }
    
 }

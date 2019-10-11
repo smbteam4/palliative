@@ -8,11 +8,11 @@
 
 
     <ion-navbar>
-        <ion-buttons start>
+        <!-- <ion-buttons start>
             <button ion-button icon-only>
               <ion-icon name="arrow-back"></ion-icon>
             </button>
-          </ion-buttons>
+          </ion-buttons> -->
   
       <ion-title>Verification</ion-title>
   
@@ -43,27 +43,27 @@
               <div style="display: flex">
                   <ion-item>
                       <ion-label floating>0</ion-label>
-                      <ion-input type="text"></ion-input>
+                      <ion-input type="text" maxlength="1" [(ngModel)]="otp0" #0tp0=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
                     </ion-item>
                   
                     <ion-item>
                       <ion-label floating>0</ion-label>
-                      <ion-input type="text"></ion-input>
+                      <ion-input type="text" maxlength="1" [(ngModel)]="otp1"  #0tp2=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label floating>0</ion-label>
-                        <ion-input type="text"></ion-input>
+                        <ion-input type="text" maxlength="1" [(ngModel)]="otp2" #0tp3=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
                       </ion-item>
                       <ion-item>
                           <ion-label floating>0</ion-label>
-                          <ion-input type="Password"></ion-input>
+                          <ion-input type="text" maxlength="1" [(ngModel)]="otp3" #0tp4=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
                         </ion-item>
               </div>
       
             <ion-list>
-              <button class="primary-btn ">SUBMIT</button>  
+              <button class="primary-btn " (click)="verifyCode()">SUBMIT</button>  
             </ion-list>
-            <h6 class="text-right text-primary">Resend</h6>
+            <h6 class="text-right text-primary" (click)="resendCode()">Resend</h6>
       </div>
   </ion-content>
   

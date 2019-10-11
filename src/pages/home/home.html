@@ -3,10 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title *ngIf="!search_mode">Home</ion-title>
+    <ion-searchbar *ngIf="search_mode" [(ngModel)]="search" (keyup.enter)='getItems($event)' ></ion-searchbar>
     <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="search"></ion-icon>
+      <button   ion-button icon-only (click)="toggleSearch()">
+        <ion-icon *ngIf="!search_mode" name="search"></ion-icon>
+        <ion-icon *ngIf="search_mode" name="close"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -16,43 +18,23 @@
   <main class="bg-red ">
     <div class="wrapper-sm">
       <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <ion-card class="my-card">
+        <ion-row *ngIf="category_list.length > 0">
+          <ion-col col-6 *ngFor="let cat of category_list">
+            <ion-card class="my-card" (click)="gotoDetail(cat.category_id,cat.category_name)">
               <div class="img-box">
-                <img src="../../assets/images/home_1.png">
+                <img src="{{base_url}}{{cat.image}}">
               </div>
-              <h5>Malignant</h5>
+              <h5>{{cat.category_name}}</h5>
               <div class=lines></div>
             </ion-card>
           </ion-col>
-          <ion-col col-6>
-            <ion-card class="my-card">
-              <div class="img-box">
-                <img src="../../assets/images/veins.png">
-              </div>
-              <h5>Venous</h5>
-              <div class=lines></div>
-            </ion-card>
-          </ion-col>
-          <ion-col col-6>
-            <ion-card class="my-card">
-              <div class="img-box">
-                <img src="../../assets/images/arterial.png">
-              </div>
-              <h5>Arterial</h5>
-              <div class=lines></div>
-            </ion-card>
-          </ion-col>
-          <ion-col col-6>
-            <ion-card class="my-card">
-              <div class="img-box">
-                <img src="../../assets/images/allergic.png">
-              </div>
-              <h5>Skin Tears</h5>
-              <div class=lines></div>
-            </ion-card>
-          </ion-col>
+        
+         
+        </ion-row>
+        <ion-row *ngIf="category_list.length == 0" style="background: #ffff">
+          NO CATEGORIES FOUND..
+        
+         
         </ion-row>
       </ion-grid>
     </div>

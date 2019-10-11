@@ -11,7 +11,7 @@
             <ion-icon name="arrow-back"></ion-icon>
           </button>
         </ion-buttons> -->
-    <ion-title>{{category_name}}</ion-title>
+    <ion-title>{{sub_cat_name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -19,12 +19,12 @@
 
     <div class="wrapper">
         <ion-list>
-            <ion-card class="mb-5" *ngFor="let topic of topicList" (click)="gotoSubDetails(topic.topic_title,topic.topic_id)">
+            <ion-card class="mb-5" *ngFor="let sub of subjectList" (click)="goToSubDetails(sub.title)">
                 <button ion-item  class="p-0">
-                   {{topic.topic_title}}
+                   {{sub.title}}
               </button> 
             </ion-card>
-            <ion-card class="mb-5" *ngIf="topicList.length == 0">
+            <ion-card class="mb-5" *ngIf="subjectList.length == 0">
                 <button ion-item  class="p-0">
                   No Topics Found
               </button> 
