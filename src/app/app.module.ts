@@ -15,11 +15,16 @@ import { ContactPage } from '../pages/contact/contact';
 import { PaymentPage } from '../pages/payment/payment';
 import { PaymentsccessPage } from '../pages/paymentsccess/paymentsccess';
 import { InterceptorProvider } from '../providers/interceptor/interceptor';
-// import { SubscriptionPage } from '../pages/subscription/subscription';
+import { SubscriptionPage } from '../pages/subscription/subscription';
 import { GalleryPage } from '../pages/gallery/gallery';
 import { ContentpagesPage } from '../pages/contentpages/contentpages';
 import { DetailPage } from '../pages/detail/detail';
 import { SubDetailPage } from '../pages/sub-detail/sub-detail';
+import { AppCropperPage } from '../pages/app-cropper/app-cropper';
+import { AboutUsPage } from '../pages/about-us/about-us';
+import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
+import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
+import { DesclaimerPage } from '../pages/desclaimer/desclaimer';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +32,12 @@ import { HttpClientModule,  HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { ApiProvider } from '../providers/api/api';
 import { Toast } from '@ionic-native/toast';
 import { IonicStorageModule } from '@ionic/storage';
+import { StripeProvider } from '../providers/stripe/stripe';
+import { Stripe } from '@ionic-native/stripe';
+import { AppPluginProvider } from '../providers/app-plugin/app-plugin';
+import { ActionSheet } from '@ionic-native/action-sheet';
+import { Camera } from '@ionic-native/camera';
+import { Crop } from '@ionic-native/crop';
 
 
 @NgModule({
@@ -43,11 +54,16 @@ import { IonicStorageModule } from '@ionic/storage';
     ContactPage,
     PaymentPage,
     PaymentsccessPage,
-    // SubscriptionPage,
+    SubscriptionPage,
     GalleryPage,
     ContentpagesPage,
     DetailPage,
-    SubDetailPage
+    SubDetailPage,
+    AppCropperPage,
+    DesclaimerPage,
+    PrivacyPolicyPage,
+    TermsOfUsePage,
+    AboutUsPage
   ],
   imports: [
     BrowserModule,
@@ -69,11 +85,16 @@ import { IonicStorageModule } from '@ionic/storage';
     ContactPage,
     PaymentPage,
     PaymentsccessPage,
-    // SubscriptionPage,
+    SubscriptionPage,
     GalleryPage,
     ContentpagesPage,
     DetailPage,
-    SubDetailPage
+    SubDetailPage,
+    AppCropperPage,
+    DesclaimerPage,
+    PrivacyPolicyPage,
+    TermsOfUsePage,
+    AboutUsPage
   ],
   providers: [
     StatusBar,
@@ -81,7 +102,13 @@ import { IonicStorageModule } from '@ionic/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
     ApiProvider,
-    Toast
+    Toast,
+    StripeProvider,
+    Stripe,
+    AppPluginProvider,
+    ActionSheet,
+    Camera,
+    Crop
   ]
 })
 export class AppModule {}

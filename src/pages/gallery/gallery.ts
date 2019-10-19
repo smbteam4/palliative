@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, Navbar , NavController, NavParams, Events  } from 'ionic-angular';
+import { ApiProvider } from '../../providers/api/api';
+import { AppSettings } from '../../app/app.settings';
 /**
  * Generated class for the GalleryPage page.
  *
@@ -14,12 +15,47 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'gallery.html',
 })
 export class GalleryPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild(Navbar) navBar: Navbar;
+  public category:any;
+  public category_name:any;
+  public topic_id:any;
+  public title:any;
+  public images:any = [];
+  public baseUrl = AppSettings.api_url;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, public events: Events) {
+    this.category = navParams.get('category_id');
+    this.topic_id = navParams.get('topic_id');
+    this.title = navParams.get('title')
   }
 
   ionViewDidLoad() {
+    this.navBar.backButtonClick = (e:UIEvent)=>{
+      // todo something
+      let data = {
+        category : this.category,
+        topic_id : this.topic_id,
+        title : this.title
+      }
+      this.events.publish('subdetals', data);
+      this.navCtrl.pop();
+     }
     console.log('ionViewDidLoad GalleryPage');
+    this.getGallery();
+  }
+
+  getGallery(){
+    let data = {
+      // category:this.category,
+      topic_id:this.topic_id
+    }
+    this.apiProvider.common_get('getTopicdetails',data).subscribe((result)=>{
+      if(result.body.status == true) {
+        this.images = result.body.data[0].images;
+        // this.descriptionData = result.body.description;
+        // this.treatment = result.body.treatment;
+        // this.topicList = result.body.categories;
+      }
+    })
   }
 
 }

@@ -15,31 +15,79 @@
 </ion-header>
 <ion-content>
 
+    <main class="bg-red ">
+        <div class="wrapper-sm">
+         
+          <ion-list>
+              <ion-grid>
+                  <ion-row *ngIf="category_list.length > 0">
+                    <ion-col col-6 *ngFor="let cat of category_list">
+                      <ion-card class="my-card" (click)="gotoDetail(cat.category_id,cat.category_name)">
+                        <div class="img-box">
+                          <img src="{{base_url}}{{cat.image}}">
+                        </div>
+                        <h5>{{cat.category_name}}</h5>
+                        <div class=lines></div>
+                      </ion-card>
+                    </ion-col>
+                  
+                   
+                  </ion-row>
+                  <ion-row *ngIf="category_list.length == 0" style="background: #ffff">
+                    NO CATEGORIES FOUND..
+                  
+                   
+                  </ion-row>
+                 
+                 
+                </ion-grid>
+                
+          </ion-list>
+          
+        </div>
+    
+      </main> 
+   
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+   
+   </ion-content>
+
+<!-- <ion-content>
+
   <main class="bg-red ">
     <div class="wrapper-sm">
-      <ion-grid>
-        <ion-row *ngIf="category_list.length > 0">
-          <ion-col col-6 *ngFor="let cat of category_list">
-            <ion-card class="my-card" (click)="gotoDetail(cat.category_id,cat.category_name)">
-              <div class="img-box">
-                <img src="{{base_url}}{{cat.image}}">
-              </div>
-              <h5>{{cat.category_name}}</h5>
-              <div class=lines></div>
-            </ion-card>
-          </ion-col>
-        
-         
-        </ion-row>
-        <ion-row *ngIf="category_list.length == 0" style="background: #ffff">
-          NO CATEGORIES FOUND..
-        
-         
-        </ion-row>
-      </ion-grid>
+     
+      <ion-list>
+          <ion-grid>
+              <ion-row *ngIf="category_list.length > 0">
+                <ion-col col-6 *ngFor="let cat of category_list">
+                  <ion-card class="my-card" (click)="gotoDetail(cat.category_id,cat.category_name)">
+                    <div class="img-box">
+                      <img src="{{base_url}}{{cat.image}}">
+                    </div>
+                    <h5>{{cat.category_name}}</h5>
+                    <div class=lines></div>
+                  </ion-card>
+                </ion-col>
+              
+               
+              </ion-row>
+              <ion-row *ngIf="category_list.length == 0" style="background: #ffff">
+                NO CATEGORIES FOUND..
+              
+               
+              </ion-row>
+             
+             
+            </ion-grid>
+            
+      </ion-list>
+      
     </div>
 
-  </main>
+  </main> -->
   <!-- <ion-list lines="none">
       <ion-list-header>
         <ion-label>Resources</ion-label>
@@ -61,4 +109,7 @@
         <ion-label>Theme Your App</ion-label>
       </ion-item>
     </ion-list> -->
-</ion-content>
+    <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+</ion-content> -->

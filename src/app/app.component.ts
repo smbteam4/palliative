@@ -5,20 +5,24 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+// import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { VerificationPage } from '../pages/verification/verification';
-import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
+// import { SignupPage } from '../pages/signup/signup';
+// import { VerificationPage } from '../pages/verification/verification';
+// import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
 import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { ProfilePage } from '../pages/profile/profile';
 import { ContactPage } from '../pages/contact/contact';
-import { PaymentPage } from '../pages/payment/payment';
-import { PaymentsccessPage } from '../pages/paymentsccess/paymentsccess';
-// import { SubscriptionPage } from '../pages/subscription/subscription';
-import { GalleryPage } from '../pages/gallery/gallery';
-import { ContentpagesPage } from '../pages/contentpages/contentpages';
-import { DetailPage } from '../pages/detail/detail';
+// import { PaymentPage } from '../pages/payment/payment';
+// import { PaymentsccessPage } from '../pages/paymentsccess/paymentsccess';
+import { SubscriptionPage } from '../pages/subscription/subscription';
+// import { GalleryPage } from '../pages/gallery/gallery';
+// import { ContentpagesPage } from '../pages/contentpages/contentpages';
+import { AboutUsPage } from '../pages/about-us/about-us';
+import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
+import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
+import { DesclaimerPage } from '../pages/desclaimer/desclaimer';
+// import { DetailPage } from '../pages/detail/detail';
 
 
 @Component({
@@ -38,12 +42,12 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       // { title: 'Sign Up', component: SignupPage },
       { title: 'My Profile', component: ProfilePage },
-      // { title: 'My Subscription', component: SubscriptionPage },
+     { title: 'My Subscription', component: SubscriptionPage },
       { title: 'Change Password', component: ChangepasswordPage },
-      { title: 'About Us', component: ContentpagesPage },
-      // { title: 'Terms of Use', component: VerificationPage },
-      // { title: 'Privacy Policy', component: ForgotpasswordPage },
-      { title: 'Disclamer', component: ChangepasswordPage },
+      { title: 'About Us', component: AboutUsPage },
+      { title: 'Terms of Use', component: TermsOfUsePage },
+      { title: 'Privacy Policy', component: PrivacyPolicyPage },
+      { title: 'Disclamer', component: DesclaimerPage },
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: LoginPage },
     ];

@@ -6,7 +6,6 @@ import { ForgotpasswordPage } from '../forgotpassword/forgotpassword';
 // import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
-import { Toast } from '@ionic-native/toast';
 // import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 /**
  * Generated class for the LoginPage page.
@@ -24,7 +23,7 @@ export class LoginPage {
   loginForm: FormGroup;
   submitAttempted: boolean = false;
   isLoggedIn:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, private toast: Toast) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider) {
     this.loginForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
         password: ['', Validators.required],
@@ -45,16 +44,20 @@ export class LoginPage {
 
   login(){
     this.submitAttempted = true;
-    console.log(this.loginForm.value,'test 123456')
+    // console.log(this.loginForm.value,'test 123456')
+    this.apiProvider.showLoader();
     let data = this.loginForm.value;
     this.apiProvider.common_post('authenticate',data).subscribe((result)=>{
       if(result.body.status == true) {
+        this.apiProvider.hideLoader();
+        this.apiProvider.showLongToast(result.body.message);
         this.navCtrl.setRoot(HomePage);
         localStorage.setItem('user',JSON.stringify(result.body.user));
         localStorage.setItem('loggedIn','true');
         localStorage.setItem('x-access-token',JSON.stringify(result.body.userToken))
       } else {
-        alert(result.body.message)
+        this.apiProvider.hideLoader();
+        this.apiProvider.showLongToast(result.body.message);
       }
     })
   }
@@ -76,5 +79,7 @@ export class LoginPage {
       this.navCtrl.setRoot(HomePage);
     }
   }
+
+  
    
 }

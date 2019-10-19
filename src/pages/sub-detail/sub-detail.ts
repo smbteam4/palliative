@@ -32,7 +32,7 @@ export class SubDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SubDetailPage');
+   
   }
 
   goToSubDetails(title) {
@@ -41,7 +41,7 @@ export class SubDetailPage {
           this.navCtrl.push(ContentpagesPage,{category_id:this.category,topic_id:this.topic_id,title:title});
       break;
       case 'Images':
-          this.navCtrl.push(GalleryPage);
+          this.navCtrl.push(GalleryPage,{category_id:this.category,topic_id:this.topic_id,title:title});
       break;
       case 'Treatment Options':
           this.navCtrl.push(ContentpagesPage,{category_id:this.category,topic_id:this.topic_id,title:title});

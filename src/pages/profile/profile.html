@@ -6,11 +6,11 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-buttons start>
+    <!-- <ion-buttons start>
       <button ion-button icon-only>
         <ion-icon name="arrow-back"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-title>My Profile</ion-title>
     <!-- <ion-buttons end>
           <button ion-button icon-only>
@@ -24,33 +24,56 @@
   <div class="bg-red">
       <div class="wrapper">
         <div class="pro-iamge">
-          <div class="img-box">
-              <img src="../../assets/images/no_avatar.jpg">
+          <div class="img-box" *ngIf="!profile_Details.profileImage">
+              <img src="../../assets/images/no_avatar.png">
 
           </div>
+          <div class="img-box" *ngIf="profile_Details.profileImage && image == ''">
+            <img src="{{baseUrl}}{{profile_Details.profileImage}}">
 
-          <div class="edit">
-            <img src="../../assets/images/edit.png">
           </div>
+          <div class="img-box" *ngIf="profile_Details.profileImage && image !=''">
+            <img src="{{profile_Details.profileImage}}">
+
+          </div>
+          <div class="edit" (click)="editPic()">
+            <img src="/assets/images/edit.jpg" width="10px" height="10px">
+            
+          </div >
         </div>
-      <h4 class="text-center text-white ">Anthony Griffin</h4>
+      <h4 class="text-center text-white ">{{profile_Details.first_name}} {{profile_Details.last_name}}</h4>
     </div>
   </div>
   <div class="wrapper">
-    <ion-item>
-      <ion-label floating>Firs Name</ion-label>
-      <ion-input type="text">Anthony</ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Last Name </ion-label>
-      <ion-input type="text">Griffin</ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Email Address</ion-label>
-      <ion-input type="text">athonygiffin@gmail.com</ion-input>
-    </ion-item>
-    <ion-list>
-      <button class="primary-btn ">SAVE</button>
-    </ion-list>
+    <form  [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+        <ion-item>
+            <ion-label floating>Firs Name</ion-label>
+            <ion-input type="text" formControlName="first_name" ></ion-input>
+           
+          </ion-item>
+          <p *ngIf="(profileForm.controls.first_name.hasError('required'))"   style=" border-bottom:none">
+              First Name is required
+             </p>
+          <ion-item>
+            <ion-label floating>Last Name </ion-label>
+            <ion-input type="text" formControlName="last_name"></ion-input>
+           
+          </ion-item>
+          <p *ngIf="(profileForm.controls.last_name.hasError('required'))"   style=" border-bottom:none">
+              Last Name is required
+              </p>
+          <ion-item>
+            <ion-label floating>Email Address</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+           
+          </ion-item>
+          <p *ngIf="(profileForm.controls.email.hasError('required') || profileForm.controls.email.hasError('pattern'))"   style=" border-bottom:none">
+              Enter a valid mail
+             </p>
+          <ion-list>
+            <button class="primary-btn ">SAVE</button>
+          </ion-list>
+    </form>
+    
   </div>
 </ion-content>

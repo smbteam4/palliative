@@ -5,8 +5,9 @@ import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { AppSettings } from '../../app/app.settings'
 import { JwtHelperService } from '@auth0/angular-jwt';
 // import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { ToastController } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
+
 // import { of } from 'rxjs';
 /*
   Generated class for the ApiProvider provider.
@@ -21,7 +22,7 @@ export class ApiProvider {
   private baseUrl2 = AppSettings.api_url+'palliativeApp/' 
   // private s3_url = environment.s3_upload;
   private loader: any;
-  constructor( private http: HttpClient, public loadingCtrl: LoadingController) { }
+  constructor( private http: HttpClient, public loadingCtrl: LoadingController, public toastCtrl: ToastController) { }
 
 
   
@@ -36,7 +37,7 @@ export class ApiProvider {
   common_post(url,data){
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'x-access-token':''
       })
     }
@@ -92,17 +93,21 @@ export class ApiProvider {
    */
 
   common_post_withToken(url,data){
+
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token':localStorage.getItem('x-access-token')
+        
       })
     }
     let options = {
       headers: httpOptions.headers
     };
-
-    let cur_url = this.baseUrl + url;
+    let cur_url = '';
+    if(url == 'changePassword')
+      cur_url = this.baseUrl + url;
+    else 
+      cur_url = this.baseUrl2 + url;
     return this.http.post<any>(cur_url, data, { headers: options.headers, observe: 'response' }).pipe((result)=>{
         // this.loader.dismiss();
         return result;
@@ -122,6 +127,28 @@ export class ApiProvider {
 
     this.loader.present();
     return this.loader;
+  }
+  public hideLoader(){
+    this.loader.dismiss();
+  }
+
+
+  showLongToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: AppSettings.toast_delay,
+    });
+    toast.present();
+  }
+
+
+  showToastWithCloseButton() {
+    const toast = this.toastCtrl.create({
+      message: 'Your files were successfully saved',
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    });
+    toast.present();
   }
   
 }

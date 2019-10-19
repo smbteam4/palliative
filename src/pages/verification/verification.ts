@@ -42,14 +42,17 @@ export class VerificationPage {
       }
       this.apiProvider.common_post('verify_reg_code',data).subscribe((result)=>{
         if(result.body.status == true){
+          this.apiProvider.showLongToast(result.body.message);
           localStorage.setItem('user',result.body.user);
           localStorage.setItem('loggedIn','true');
           this.navCtrl.setRoot(HomePage);
+        } else {
+          this.apiProvider.showLongToast(result.body.message);
         }
        
       })
     } else {
-
+     
     }
     
   }

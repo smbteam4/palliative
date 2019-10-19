@@ -21,9 +21,13 @@ export class HomePage {
   public search_mode:boolean =false;
   public category_list:any =[];
   public base_url:any;
+  items = [];
  // rootPage: any = LoginPage;
  pages: Array<{title: string, component: any}>;
   constructor(public navCtrl: NavController, public apiProvider:ApiProvider) {
+    for (let i = 0; i < 30; i++) {
+      this.items.push( this.items.length );
+    }
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Sign Up', component: SignupPage },
@@ -73,6 +77,7 @@ export class HomePage {
     localStorage.removeItem('loggedIn');
     this.navCtrl.setRoot(LoginPage);
   }
+  
 
   getData(){
     let data = {

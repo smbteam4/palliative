@@ -6,11 +6,6 @@
 -->
 <ion-header>
     <ion-navbar>
-        <ion-buttons start>
-            <button ion-button icon-only>
-              <ion-icon name="arrow-back"></ion-icon>
-            </button>
-          </ion-buttons>
       <ion-title>Images </ion-title>
     </ion-navbar>
   </ion-header>
@@ -18,17 +13,12 @@
 <ion-content >
     <div class="wrapper">
         <ion-grid class="p-0">
-            <ion-row>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-
-              <ion-col col-4><img src="../../assets/images/image_1.png" ></ion-col>
-
+            <ion-row *ngIf="images.length>0">
+              <ion-col col-4  *ngFor="let img of images"><img src="{{baseUrl}}{{img}}" ></ion-col>
+              
+            </ion-row>
+            <ion-row *ngIf="images.length == 0">
+              <ion-col>No images found</ion-col>
             </ion-row>
           </ion-grid>
       </div>

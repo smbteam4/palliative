@@ -15,9 +15,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content *ngIf="title == 'Description'">
     <div class="wrapper" [innerHTML]="descriptionData">
         
 
-      </div>
+    </div>
+</ion-content>
+<ion-content *ngIf="title == 'Treatment Options'">
+  <div class="wrapper" [innerHTML]="treatment">
+      
+
+  </div>
 </ion-content>

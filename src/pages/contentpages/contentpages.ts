@@ -19,6 +19,7 @@ export class ContentpagesPage {
   public topic_id:any;
   public title:any;
   public descriptionData:any;
+  public treatment:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public apiProvider:ApiProvider) {
     this.category = navParams.get('category_id');
     this.topic_id = navParams.get('topic_id');
@@ -35,10 +36,11 @@ export class ContentpagesPage {
       // category:this.category,
       topic_id:this.topic_id
     }
-    this.apiProvider.common_get('getDescription',data).subscribe((result)=>{
+    this.apiProvider.common_get('getTopicdetails',data).subscribe((result)=>{
       if(result.body.status == true) {
         
-        this.descriptionData = result.body.description;
+        this.descriptionData = result.body.data[0].description;
+        this.treatment = result.body.data[0].treatment;
         // this.topicList = result.body.categories;
       }
     })
