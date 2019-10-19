@@ -25,6 +25,7 @@ export class TermsOfUsePage {
   }
 
   getPrivacyTerms() {
+    this.ApiProvider.showLoader();
     let data = {
       url:'terms'
     }
@@ -33,6 +34,7 @@ export class TermsOfUsePage {
         this.termsData = result.body.data;
       else 
         this.ApiProvider.showLongToast(result.body.message);
+        this.ApiProvider.hideLoader();
     })
   }
 }

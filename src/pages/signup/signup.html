@@ -35,31 +35,52 @@
 </ion-header> -->
 <ion-content >
     <div class="wrapper">
-        <ion-list>
-            <ion-item>
-              <ion-label floating>First Name</ion-label>
-              <ion-input type="text" [(ngModel)]="user.first_name"></ion-input>
-            </ion-item>
-          
-            <ion-item>
-              <ion-label floating>Last Name</ion-label>
-              <ion-input type="text" [(ngModel)]="user.last_name"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>Email Address</ion-label>
-                <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label floating>Password</ion-label>
-                  <ion-input type="Password" [(ngModel)]="user.password"></ion-input>
-                </ion-item>
-          </ion-list>
-          <ion-item class="border-0">
-              <ion-label class="text-black">I agree to the <span class="text-primary"> Terms</span> and <span class="text-primary">Privacy</span></ion-label>
-              <ion-checkbox  checked="true" [(ngModel)]="user.agree"></ion-checkbox>
-            </ion-item>
+      <form action="" [formGroup]="signUpForm" (submit)="signUpNow()">
           <ion-list>
-            <button class="primary-btn " [disabled]="isInvalid" (click)="signUpNow()">SIGNUP</button>  
-          </ion-list>
+              <ion-item>
+                <ion-label floating>First Name</ion-label>
+                <ion-input type="text" formControlName="first_name" ></ion-input>
+                
+              </ion-item>
+              <p *ngIf="(signUpForm.controls.first_name.hasError('required')) && submitAttempted "   style=" border-bottom:none">
+                  Required First Name
+                 </p>
+              <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input type="text" formControlName="last_name" ></ion-input>
+              </ion-item>
+              <p *ngIf="(signUpForm.controls.last_name.hasError('required')) && submitAttempted "   style=" border-bottom:none">
+                Required Last Name
+               </p>
+              <ion-item>
+                  <ion-label floating>Email Address</ion-label>
+                  <ion-input type="text" formControlName="email"></ion-input>
+                </ion-item>
+                <p *ngIf="(signUpForm.controls.email.hasError('required') || signUpForm.controls.email.hasError('pattern')) && submitAttempted "   style=" border-bottom:none">
+                    Enter a valid mail
+                 </p>
+                <ion-item>
+                    <ion-label floating>Password</ion-label>
+                    <ion-input type="Password" formControlName="password" ></ion-input>
+                  </ion-item>
+                  <p *ngIf="signUpForm.controls.password.hasError('required')  && submitAttempted "   style=" border-bottom:none">
+                     Enter valid password
+                   </p>
+            </ion-list>
+            <ion-item class="border-0">
+                <ion-label class="text-black">I agree to the <span class="text-primary"> Terms</span> and <span class="text-primary">Privacy</span></ion-label>
+                <ion-checkbox  checked="true" formControlName="agree" ></ion-checkbox>
+              </ion-item>
+              <p *ngIf="signUpForm.controls.agree.hasError('required')  && submitAttempted "   style=" border-bottom:none">
+                  Accept Terms and Privacy Policy
+               </p>
+               <p *ngIf="acceptPrivacy && submitAttempted "   style=" border-bottom:none">
+                  Accept Terms and Privacy Policy
+               </p>
+            <ion-list>
+              <button class="primary-btn ">SIGNUP</button>  
+            </ion-list>
+      </form>
+        
     </div>
 </ion-content>

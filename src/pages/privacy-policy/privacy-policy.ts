@@ -25,6 +25,7 @@ export class PrivacyPolicyPage {
   }
 
   getPrivacyPolicy() {
+    this.ApiProvider.showLoader();
     let data = {
       url:'privacy'
     }
@@ -33,6 +34,7 @@ export class PrivacyPolicyPage {
         this.privacyData = result.body.data;
       else 
         this.ApiProvider.showLongToast(result.body.message);
+        this.ApiProvider.hideLoader();
     })
   }
   

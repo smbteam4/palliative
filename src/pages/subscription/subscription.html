@@ -21,10 +21,12 @@
           <ion-grid class="p-0">
             <ion-row>
               <ion-col col-6>
-                <h5>$<span>7884</span>/year</h5>
+                <h5><span>{{subscriptionDetails.data?.price | currency}}</span>/year</h5>
+                <p *ngIf="subscriptionDetails.subscription_end_date"><strong>Expires on:</strong>{{subscriptionDetails?.subscription_end_date | date: shortDate}}</p>
+                <!-- [disabled]="subscriptionDetails.subscription_end_date" -->
               </ion-col>
               <ion-col col-6>
-                  <button class="primary-btn-sm" (click)="goTopayment()">GET THIS PLAN</button>
+                  <button class="primary-btn-sm" (click)="goTopayment()"  [disabled]="subscriptionDetails?.subscription_end_date">GET THIS PLAN</button>
               </ion-col>
             </ion-row>
           </ion-grid>

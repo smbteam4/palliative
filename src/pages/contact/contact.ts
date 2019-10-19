@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ApiProvider } from '../../providers/api/api'
+import { ApiProvider } from '../../providers/api/api';
+
 /**
  * Generated class for the ContactPage page.
  *
@@ -35,6 +36,8 @@ export class ContactPage {
           this.ApiProvider.showLongToast(result.body.message);
         }
       })
+    } else {
+      this.ApiProvider.showLongToast('Please enter some message');
     }
   }
 

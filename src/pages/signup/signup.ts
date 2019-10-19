@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, Item, ToastController } from 'ioni
 import { ApiProvider } from '../../providers/api/api';
 import { Toast } from '@ionic-native/toast';
 import { VerificationPage } from '../verification/verification';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { ValidationService } from '../../providers/validators/validators'
 
 /**
  * Generated class for the SignupPage page.
@@ -17,12 +19,23 @@ import { VerificationPage } from '../verification/verification';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
+  signUpForm: FormGroup;
   user:any={};
   isInvalid = false;
   rootPage:any;
   message = "";
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, private toast: Toast) {
+  submitAttempted: boolean;
+  acceptPrivacy:boolean;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, private toast: Toast, fb: FormBuilder) {
     this.rootPage = ''
+    this.signUpForm = fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)])],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      password: ['', Validators.required],
+      agree: [false, Validators.required]
+    });
+    this.acceptPrivacy = false;
   }
 
   ionViewDidLoad() {
@@ -35,23 +48,32 @@ export class SignupPage {
     }
   }
   signUpNow(){
-    this.isInvalid = this.checkFormNow();
+    this.submitAttempted = true;
+    // this.isInvalid = this.checkFormNow();
     // console.log(this.isInvalid, 'this.isInvalid');
-    if(!this.isInvalid) {
-      this.apiProvider.common_post('register',this.user).subscribe((result)=>{
-        if(result.body.status == true){
-          this.navCtrl.push(VerificationPage,{
-            email:this.user.email
-          });
-
+    console.log(this.signUpForm.value,'test valueeeeeeeee');
+    this.acceptPrivacy = false;
+    if(this.signUpForm.valid) {
+      if(this.signUpForm.value.agree) {
+        let data = {
+          first_name:this.signUpForm.value.first_name,
+          last_name:this.signUpForm.value.last_name,
+          email:this.signUpForm.value.email,
+          password:this.signUpForm.value.password
         }
-       
-      })
-    } else {
-      // console.log('here no entry')
-      // this.message = ''
-      alert(this.message)
-      // this.toast.show(this.message, '500000', 'center').subscribe();
+        this.apiProvider.common_post('register',data).subscribe((result)=>{
+          if(result.body.status == true){
+            this.navCtrl.push(VerificationPage,{
+              email:data.email
+            });
+            this.submitAttempted = false;
+          }
+         
+        })
+      } else {
+        this.acceptPrivacy = true;
+      }
+      
     }
 
    

@@ -38,7 +38,8 @@ import { AppPluginProvider } from '../providers/app-plugin/app-plugin';
 import { ActionSheet } from '@ionic-native/action-sheet';
 import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
-
+// import { ValidatorsProvider } from '../providers/validators/validators';
+import { ValidationService } from '../providers/validators/validators';
 
 @NgModule({
   declarations: [

@@ -25,6 +25,7 @@ export class DesclaimerPage {
   }
 
   getDesclaimer() {
+    this.ApiProvider.showLoader();
     let data = {
       url:'disclaimer'
     }
@@ -33,6 +34,7 @@ export class DesclaimerPage {
         this.desclaimerData = result.body.data;
       else 
         this.ApiProvider.showLongToast(result.body.message);
+        this.ApiProvider.hideLoader();
     })
   }
 }

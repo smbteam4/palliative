@@ -42,21 +42,21 @@
           </h4>
               <div style="display: flex">
                   <ion-item>
-                      <ion-label floating>0</ion-label>
-                      <ion-input type="text" maxlength="1" [(ngModel)]="otp0" #0tp0=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
+                      <!-- <ion-label floating>0</ion-label> -->
+                      <ion-input type="text" maxlength="1" [(ngModel)]="otp0" #a (keyup)="changeNum($event)" (keyup)='setFocus(b)'  (keyup.backspace)='setFocus(a)' required></ion-input>
                     </ion-item>
                   
                     <ion-item>
-                      <ion-label floating>0</ion-label>
-                      <ion-input type="text" maxlength="1" [(ngModel)]="otp1"  #0tp2=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
+                      <!-- <ion-label floating>0</ion-label> -->
+                      <ion-input type="text" maxlength="1" [(ngModel)]="otp1"  #b (keyup)="changeNum($event)" (keyup)='setFocus(c)'  (keyup.backspace)='setFocus(a)' required></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label floating>0</ion-label>
-                        <ion-input type="text" maxlength="1" [(ngModel)]="otp2" #0tp3=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
+                        <!-- <ion-label floating>0</ion-label> -->
+                        <ion-input type="text" maxlength="1" [(ngModel)]="otp2" #c (keyup)="changeNum($event)" (keyup)='setFocus(d)'  (keyup.backspace)='setFocus(b)' required></ion-input>
                       </ion-item>
                       <ion-item>
-                          <ion-label floating>0</ion-label>
-                          <ion-input type="text" maxlength="1" [(ngModel)]="otp3" #0tp4=ngModel (keyup)="changeNum($event)" (keyup)='setFocus($event)'  (keyup.backspace)='backHandle($event)' required></ion-input>
+                          <!-- <ion-label floating>0</ion-label> -->
+                          <ion-input type="text" maxlength="1" [(ngModel)]="otp3" #d (keyup)="changeNum($event)" (keyup)='setFocus(d)'  (keyup.backspace)='setFocus(c)' required></ion-input>
                         </ion-item>
               </div>
       

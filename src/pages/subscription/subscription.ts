@@ -21,23 +21,24 @@ export class SubscriptionPage {
   public category:any;
   public category_name:any;
   public topic_id:any;
-  public subscriptionDetails:any;
+  public subscriptionDetails:any={};
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider) {
    
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SubscriptionPage');
+    // console.log('ionViewDidLoad SubscriptionPage');
     this.getDescription();
   }
   getDescription(){
-    
+    this.apiProvider.showLoader();
     this.apiProvider.common_get('getSubscription',{}).subscribe((result)=>{
-      if(result.body.status == true) {
-        this.subscriptionDetails =result.body.Subscription;
+      // if(result.body.status == true) {
+        this.subscriptionDetails =result.body;
         console.log(this.subscriptionDetails)
         // this.topicList = result.body.categories;
-      }
+      // }
+      this.apiProvider.hideLoader();
     })
   }
 

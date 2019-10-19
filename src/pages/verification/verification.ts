@@ -79,20 +79,19 @@ export class VerificationPage {
   }
 
 
-  setFocus(event) {
-    console.log(event.keyCode)
-    let element = event.srcElement.nextElementSibling;
-    if (element == null || event.keyCode == 8)
-      return false;
-    else
-      element.focus();
+  setFocus(nextElement) {
+    console.log(nextElement,'nextElementnextElement');
+    setTimeout(()=>{
+      // nextElement.focus();
+    },100)
+   
   }
 
   backHandle(event) {
-    let element = event.srcElement.previousElementSibling;
-    if (element == null)
-      return;
-    else
-      element.focus();
+    // let element = event.srcElement.previousElementSibling;
+    // if (element == null)
+    //   return;
+    // else
+    //   element.focus();
   }
 }
