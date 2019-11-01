@@ -1,5 +1,5 @@
 {
-  "name": "palliativeWoundPro",
+  "name": "palliative WoundPro",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -25,11 +25,13 @@
     "@ionic-native/camera": "^4.20.0",
     "@ionic-native/core": "~4.20.0",
     "@ionic-native/crop": "^4.20.0",
+    "@ionic-native/photo-viewer": "^4.20.0",
     "@ionic-native/splash-screen": "~4.20.0",
     "@ionic-native/status-bar": "~4.20.0",
     "@ionic-native/stripe": "^4.20.0",
     "@ionic-native/toast": "^4.20.0",
     "@ionic/storage": "2.2.0",
+    "com-sarriaroman-photoviewer": "^1.2.4",
     "cordova-android": "8.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-camera": "^4.1.0",
@@ -68,7 +70,8 @@
       "cordova-plugin-stripe": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-actionsheet": {},
-      "cordova-plugin-crop": {}
+      "cordova-plugin-crop": {},
+      "com-sarriaroman-photoviewer": {}
     },
     "platforms": [
       "android"

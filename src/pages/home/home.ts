@@ -37,7 +37,7 @@ export class HomePage {
       { title: 'About Us', component: ContentpagesPage },
       // { title: 'Terms of Use', component: VerificationPage },
       // { title: 'Privacy Policy', component: ForgotpasswordPage },
-      { title: 'Disclamer', component: ChangepasswordPage },
+      // { title: 'Disclamer', component: ChangepasswordPage },
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: '' },
     ];
@@ -83,11 +83,34 @@ export class HomePage {
     let data = {
       search:this.search
     }
+    this.apiProvider.showLoader();
     this.apiProvider.common_get('getCategories',data).subscribe((result)=>{
       if(result.body.status == true){
         this.category_list = result.body.categories;
+        // this.category_list = [];
+      } else{
+        if(this.search_mode){
+          this.search = ''
+          this.getData2()
+        }
       }
-     
+      this.apiProvider.hideLoader();
+    })
+  }
+
+  getData2(){
+    let data = {
+      search:this.search
+    }
+    // this.apiProvider.showLoader();
+    this.apiProvider.common_get('getCategories',data).subscribe((result)=>{
+      if(result.body.status == true){
+        this.category_list = result.body.categories;
+        // this.category_list = [];
+      } else{
+        
+      }
+      // this.apiProvider.hideLoader();
     })
   }
   getItems($eve) {
@@ -95,11 +118,25 @@ export class HomePage {
     this.getData();
   }
 
+
   toggleSearch(){
-    this.search_mode = (this.search_mode)?false:true;
-    if(!this.search_mode){
+    if(this.search_mode){
+      this.search = '';
+      this.search_mode =false;
+      this.getData();
+    } else {
+      this.search_mode =true;
       this.search = '';
     }
+    // this.search_mode = (this.search_mode)?false:true;
+    // if(!this.search_mode){
+    //   this.search = '';
+    // } 
+  }
+  closeSearch(){
+    this.search_mode = (this.search_mode)?false:true;
+    this.search = '';
+    this.getData();
   }
 
 }

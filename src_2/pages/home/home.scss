@@ -1,0 +1,41 @@
+page-home {
+    .wrapper-sm{
+        padding:10px;
+    }
+  
+      h5{
+        font-size: 17px !important;
+        color:#262626;
+        height: 30px;
+      }
+      .bg-red {
+        // height: 100vh;
+      }
+      .scroll-content{
+          padding: 0px;
+        //   overflow: hidden;
+
+      }
+      .my-card{
+        height: 261px;
+        padding: 23px;
+        margin: 10px;
+        position: relative;
+
+        .img-box{
+            height: 130px;
+            margin-top: 20px;
+            img{
+                width: 60px;
+            }
+          }
+      }
+      .lines{
+          background: #333E8D;
+          height: 2px;
+          width: 50px;
+          border-radius: 20px;
+          position: absolute;
+          bottom: 26px;
+      }
+}

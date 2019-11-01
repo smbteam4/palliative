@@ -28,12 +28,15 @@
        Password required
       </p>
     </ion-list>
-    <h6 class="text-white text-right" (click)="forgotPassword()">Forgot password?</h6>
+    <div  style="float: right;">
+        <h6 class="text-white " (click)="forgotPassword()" >Forgot password?</h6>
+
+    </div>
     <ion-list>
       <button type="submit" class="primary-btn" [disabled]="!loginForm.valid" >LOGIN </button>  
     </ion-list>
   </form>
-    <h6 class="text-white text-center">No account? <b (click)="signupNow()">Sign up</b></h6>
+    <h6 class="text-white text-center">No account? <b (click)="signupNow()">Sign Up</b></h6>
   </div>
  
 

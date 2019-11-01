@@ -22,6 +22,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
 import { DesclaimerPage } from '../pages/desclaimer/desclaimer';
+import { ApiProvider } from '../providers/api/api'
 // import { DetailPage } from '../pages/detail/detail';
 
 
@@ -35,7 +36,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
   isLoggedIn:any;
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public ApiProvider:ApiProvider) {
     this.initializeApp();
 
     this.pages = [
@@ -47,7 +48,7 @@ export class MyApp {
       { title: 'About Us', component: AboutUsPage },
       { title: 'Terms of Use', component: TermsOfUsePage },
       { title: 'Privacy Policy', component: PrivacyPolicyPage },
-      { title: 'Disclamer', component: DesclaimerPage },
+      // { title: 'Disclaimer', component: DesclaimerPage },
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: LoginPage },
     ];
@@ -62,7 +63,10 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      setTimeout(()=>{
+        this.splashScreen.hide();
+      },1000)
+      
     });
 
     // console.log(this.isLoggedIn,'this.isLoggedIn');
@@ -92,9 +96,15 @@ export class MyApp {
 
   logout(){
     // console.log('hereeeee');
-    localStorage.clear();
-    localStorage.removeItem('user');
-    localStorage.removeItem('loggedIn');
-    this.nav.setRoot(LoginPage);
+    this.ApiProvider.presentConfirm('Are you sure you want to logout?','Palliative').then((result)=>{
+      localStorage.clear();
+      localStorage.removeItem('user');
+      localStorage.removeItem('loggedIn');
+      this.nav.setRoot(LoginPage);
+    }).catch((err)=>{
+      console.log(err);
+    })
+   
+    
   }
 }

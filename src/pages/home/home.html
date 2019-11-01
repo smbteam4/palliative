@@ -4,50 +4,52 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title *ngIf="!search_mode">Home</ion-title>
-    <ion-searchbar *ngIf="search_mode" [(ngModel)]="search" (keyup.enter)='getItems($event)' ></ion-searchbar>
+    <ion-searchbar *ngIf="search_mode" placeholder="Search by category" [(ngModel)]="search" (keyup.enter)='getItems($event)' ></ion-searchbar>
     <ion-buttons end>
       <button   ion-button icon-only (click)="toggleSearch()">
         <ion-icon *ngIf="!search_mode" name="search"></ion-icon>
         <ion-icon *ngIf="search_mode" name="close"></ion-icon>
       </button>
+      
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
-
-    <main class="bg-red ">
-        <div class="wrapper-sm">
-         
-          <ion-list>
-              <ion-grid>
-                  <ion-row *ngIf="category_list.length > 0">
-                    <ion-col col-6 *ngFor="let cat of category_list">
-                      <ion-card class="my-card" (click)="gotoDetail(cat.category_id,cat.category_name)">
-                        <div class="img-box">
-                          <img src="{{base_url}}{{cat.image}}">
-                        </div>
-                        <h5>{{cat.category_name}}</h5>
-                        <div class=lines></div>
-                      </ion-card>
-                    </ion-col>
-                  
-                   
-                  </ion-row>
-                  <ion-row *ngIf="category_list.length == 0" style="background: #ffff">
-                    NO CATEGORIES FOUND..
-                  
-                   
-                  </ion-row>
-                 
-                 
-                </ion-grid>
-                
-          </ion-list>
-          
-        </div>
+  <main class="bg-red " *ngIf="category_list.length > 0">
+    <div class="wrapper-sm">
+    <ion-card class="my-card" *ngFor="let cat of category_list" (click)="gotoDetail(cat.category_id,cat.category_name)">
+    <div>
+    <div class="img-box"  *ngIf="cat.image">
+    <img src="{{base_url}}{{cat.image}}">
+    </div>
+    <div class="img-box"  *ngIf="!cat.image">
+      <img src="../../assets/images/no_image.jpg">
+    </div>
+    </div>
+    <h5>{{cat.category_name}}</h5>
+    </ion-card>
+  
+    </div>
     
-      </main> 
-   
+    </main>
+    <main class="bg-red " *ngIf="category_list.length == 0">
+      <div class="wrapper-sm">
+      <!-- <ion-card class="my-card" *ngFor="let cat of category_list" (click)="gotoDetail(cat.category_id,cat.category_name)">
+      <div>
+      <div class="img-box"  *ngIf="cat.image">
+      <img src="{{base_url}}{{cat.image}}">
+      </div>
+      <div class="img-box"  *ngIf="!cat.image">
+        <img src="../../assets/images/no_image.jpg">
+      </div>
+      </div> -->
+      <h5>   No Categories Found</h5>
+      <!-- </ion-card> -->
+    
+      </div>
+      
+      </main>
+    
     <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll> -->
