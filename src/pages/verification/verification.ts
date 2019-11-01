@@ -96,17 +96,17 @@ export class VerificationPage {
 
   setFocus(event,el) {
     // console.log(event)
-    if(event.target.value.length >1) {
-      event.target.value = event.target.value.substring(0,event.target.value.length-1);
-      event.preventDefault();
-      el.setFocus();
-    }else {
+    // if(event.target.value.length >1) {
+    //   event.target.value = event.target.value.substring(0,event.target.value.length-1);
+    //   event.preventDefault();
+    //   el.setFocus();
+    // }else {
       
       if (event.keyCode == 8)
       return false;
     else
       el.setFocus();
-    }
+    // }
     // document.getElementById('itemtest').focus();
     // event.setFocus();
     // console.log(event.keyCode)
@@ -121,18 +121,18 @@ export class VerificationPage {
     //   return;
     // else
     //   element.focus();
-    if(event.target.value.length >1) {
-      event.target.value = event.target.value.substring(0,event.target.value.length-1);
-      event.preventDefault();
-    }else {
-      console.log(event.target.value.length,'dfjdjfkdfk');
+    // if(event.target.value.length >1) {
+    //   event.target.value = event.target.value.substring(0,event.target.value.length-1);
+    //   event.preventDefault();
+    // }else {
+      // console.log(event.target.value.length,'dfjdjfkdfk');
         // if (event.keyCode == 8  && event.target.value.length == 0)
           el.setFocus();
       // else {
       //   el.setFocus();
       // }
          
-    }
+    // }
   
   }
   setInput(event) {

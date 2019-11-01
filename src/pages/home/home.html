@@ -4,11 +4,12 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title *ngIf="!search_mode">Home</ion-title>
-    <ion-searchbar *ngIf="search_mode" placeholder="Search by category" [(ngModel)]="search" (keyup.enter)='getItems($event)' ></ion-searchbar>
+    
+    <ion-searchbar *ngIf="search_mode" placeholder="Search by category" [(ngModel)]="search" (ionFocus)="checkFocus()" (ionClear)="toggleSearch()" (keyup.enter)='getItems($event)' ></ion-searchbar>
     <ion-buttons end>
       <button   ion-button icon-only (click)="toggleSearch()">
         <ion-icon *ngIf="!search_mode" name="search"></ion-icon>
-        <ion-icon *ngIf="search_mode" name="close"></ion-icon>
+       
       </button>
       
     </ion-buttons>
@@ -23,7 +24,7 @@
     <img src="{{base_url}}{{cat.image}}">
     </div>
     <div class="img-box"  *ngIf="!cat.image">
-      <img src="../../assets/images/no_image.jpg">
+      <img src="../../assets/images/no-photo.jpg">
     </div>
     </div>
     <h5>{{cat.category_name}}</h5>

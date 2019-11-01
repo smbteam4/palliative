@@ -1,0 +1,15 @@
+page-gallery {
+ion-col {
+    height: 100px;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 24px;
+
+
+    img{
+        object-fit: cover;
+         height: 100%;
+    }
+}
+
+}

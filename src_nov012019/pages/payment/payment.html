@@ -1,0 +1,77 @@
+<!--
+  Generated template for the PaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <!-- <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons> -->
+    <ion-title>Payment</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrapper">
+    <form [formGroup]="paymentForm" (ngSubmit)="payNow()">
+        <ion-card class="m-0 pt-0">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label floating>Card Holder's Name</ion-label>
+                  <ion-input type="text" formControlName="name"></ion-input>
+                </ion-item>
+                <p class="validMsg"  *ngIf="paymentForm.controls.name.hasError('required') && paymentForm.controls.name.touched "   style=" border-bottom:none">
+                     Enter name 
+                   </p>
+              </ion-col>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label floating>Card Number</ion-label>
+                  <ion-input type="number" maxlength="16" formControlName="card_number"></ion-input>
+                </ion-item>
+                <p class="validMsg"  *ngIf="(paymentForm.controls.card_number.hasError('required') || paymentForm.controls.card_number.hasError('maxlength') ||  paymentForm.controls.card_number.hasError('pattern')  ||  paymentForm.controls.card_number.hasError('minlength')) && paymentForm.controls.card_number.touched "   style=" border-bottom:none">
+                    Enter valid card number 
+                  </p>
+                  
+              </ion-col>
+              <ion-col col-8>
+                  <ion-item style="margin-top: 19px;">
+                      <!-- <ion-label primary>Date:</ion-label> -->
+                      <ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY"   min="2019" max="2100-10-31" formControlName="expdate" placeholder="Expiration Date"></ion-datetime>
+                  </ion-item>
+                <!-- <ion-item style="margin-top: 6px;">
+                  <ion-label floating></ion-label>
+  
+                  
+                  <ion-datetime display-format="MM/YY" color="red" min="2019"  max="3000" pickerFormat="MMMM YYYY" formControlName="expdate" placeholder="Expiration Date"></ion-datetime>
+                </ion-item> -->
+                <p  class="validMsg" *ngIf="(paymentForm.controls.expdate.hasError('required'))  && paymentForm.controls.expdate.touched "   style=" border-bottom:none">
+                   Expiration date is required
+                  </p>
+              </ion-col>
+              <ion-col col-4>
+                <ion-item >
+                  <ion-label floating>CVV</ion-label>
+                  <ion-input type="number"  maxlength="3" formControlName="cvv"></ion-input>
+                </ion-item>
+                <p class="validMsg"  *ngIf="(paymentForm.controls.cvv.hasError('required') || paymentForm.controls.cvv.hasError('maxlength') || paymentForm.controls.cvv.hasError('minlength') || paymentForm.controls.cvv.hasError('pattern'))  && paymentForm.controls.cvv.touched  "   style=" border-bottom:none">
+                    Enter CVV 
+                  </p>
+                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+        <ion-list>
+          <button type="submit" class="primary-btn" [disabled]="!paymentForm.valid">Confirm Payment</button>
+        </ion-list>
+    </form>
+  
+  </div>
+</ion-content>

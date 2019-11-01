@@ -18,8 +18,10 @@
 <ion-content>
     <ion-list>
     <button ion-item class="text-black" *ngFor="let topic of topicList" (click)="gotoSubDetails(topic.topic_title,topic.topic_id)">
-    <div class="thump-box" *ngIf="topic.image" >
+    <div>
+      <div class="thump-box" *ngIf="topic.image" >
         <img src="{{basicUrl}}{{topic.image}}">
+    </div>
     </div>
     <div class="thump-box" *ngIf="!topic.image" >
       <img src="../../assets/images/no-photo.jpg">

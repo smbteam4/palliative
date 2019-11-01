@@ -1,0 +1,26 @@
+<ion-menu [content]="content" type="overlay">
+
+
+    <ion-content class="bg-red-df">
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+            {{p.title}}
+        </button>
+        <!-- <button menuClose ion-item></button>
+        <button menuClose ion-item></button>
+        <button menuClose ion-item>Home</button>
+        <button menuClose ion-item>My Profile</button>
+        <button menuClose ion-item>My Subscription </button>'
+        <button menuClose ion-item>Change Password </button>
+        <button menuClose ion-item>About Us</button>
+        <button menuClose ion-item>Terms of Use</button>
+        <button menuClose ion-item>Privacy Policy</button>
+        <button menuClose ion-item>Privacy Policy</button>
+        <button menuClose ion-item>Contact Us</button>
+        <button menuClose ion-item>Logout</button> -->
+  
+    </ion-content>
+  
+  </ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

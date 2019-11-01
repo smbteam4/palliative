@@ -133,6 +133,7 @@ export class HomePage {
     //   this.search = '';
     // } 
   }
+  
   closeSearch(){
     this.search_mode = (this.search_mode)?false:true;
     this.search = '';
