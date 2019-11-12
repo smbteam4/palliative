@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform , ActionSheetController} from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
 import { AppPluginProvider } from '../../providers/app-plugin/app-plugin';
@@ -24,7 +24,7 @@ export class ProfilePage {
   public profileForm:FormGroup;
   public image:any;
   public baseUrl:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public AppPluginProvider:AppPluginProvider, private crop: Crop,public platform:Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public AppPluginProvider:AppPluginProvider, private crop: Crop,public platform:Platform,public actionSheetCtrl: ActionSheetController) {
     this.profile_Details = JSON.parse(localStorage.getItem('user'));
     this.baseUrl = AppSettings.api_url;
     this.profileForm = fb.group({
@@ -107,9 +107,35 @@ export class ProfilePage {
   }
 
   editPic() {
-    this.AppPluginProvider.showActionSheet()
-    .then((sheetIndex: number)=> this.actionSheetSuccess(sheetIndex))
-    .catch((error)=> this.actionError(error));
+    // this.AppPluginProvider.showActionSheet()
+    // .then((sheetIndex: number)=> this.actionSheetSuccess(sheetIndex))
+    // .catch((error)=> this.actionError(error));
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose Source',
+      buttons: [
+        {
+          text: 'Open Gallery',
+          icon:'md-images',
+          handler: () => {
+            this.actionSheetSuccess(2);
+          }
+        },{
+          text: 'Camera',
+          icon:'md-camera',
+          handler: () => {
+            this.actionSheetSuccess(1);
+          }
+        },{
+          text: 'Cancel',
+          role: 'destructive',
+          icon:'md-close-circle',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
   
   actionError(err){

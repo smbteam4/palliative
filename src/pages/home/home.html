@@ -1,11 +1,13 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar hidebackbutton="true" >
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title *ngIf="!search_mode">Home</ion-title>
+    <form action=".">
+      <ion-searchbar *ngIf="search_mode" [ngModelOptions]="{standalone: true}" placeholder="Search by category" [(ngModel)]="search" (ionFocus)="this.value = this.value;" (ionClear)="toggleSearch()" (keyup.enter)='getItems($event)' ></ion-searchbar>
+    </form>
     
-    <ion-searchbar *ngIf="search_mode" placeholder="Search by category" [(ngModel)]="search" (ionFocus)="checkFocus()" (ionClear)="toggleSearch()" (keyup.enter)='getItems($event)' ></ion-searchbar>
     <ion-buttons end>
       <button   ion-button icon-only (click)="toggleSearch()">
         <ion-icon *ngIf="!search_mode" name="search"></ion-icon>
@@ -14,11 +16,48 @@
       
     </ion-buttons>
   </ion-navbar>
+</ion-header> -->
+<!-- <ion-header class="header-blue no-shadow">
+  <ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!search_mode">Home</ion-title>
+    <ion-searchbar *ngIf="search_mode" (ionInput)="setFilter()" [(ngModel)]="search_key" placeholder="Search by category" 
+    showCancelButton="false"></ion-searchbar>
+  
+    <ion-buttons end>
+      <button   ion-button icon-only (click)="toggleSearch()">
+        <ion-icon *ngIf="!search_mode" name="search"></ion-icon>
+        <ion-icon *ngIf="search_mode" name="close"></ion-icon>
+      </button>
+      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+<ion-header>
+  <ion-navbar hidebackbutton="true" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!search_mode">Home</ion-title>
+    
+    <ion-searchbar *ngIf="search_mode" (ionInput)="setFilter()" [(ngModel)]="search_key" placeholder="Search by category" 
+    showCancelButton="false"></ion-searchbar>
+    <ion-buttons end>
+      <button   ion-button icon-only (click)="toggleSearch()">
+        <ion-icon *ngIf="!search_mode" name="search"></ion-icon>
+        <ion-icon *ngIf="search_mode" name="close"></ion-icon>
+       
+      </button>
+      
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 <ion-content>
-  <main class="bg-red " *ngIf="category_list.length > 0">
+  <main class="bg-red " *ngIf="norList.length > 0">
     <div class="wrapper-sm">
-    <ion-card class="my-card" *ngFor="let cat of category_list" (click)="gotoDetail(cat.category_id,cat.category_name)">
+    <ion-card class="my-card" *ngFor="let cat of norList" (click)="gotoDetail(cat.category_id,cat.category_name)">
     <div>
     <div class="img-box"  *ngIf="cat.image">
     <img src="{{base_url}}{{cat.image}}">
@@ -33,7 +72,7 @@
     </div>
     
     </main>
-    <main class="bg-red " *ngIf="category_list.length == 0">
+    <main class="bg-red " *ngIf="norList.length == 0">
       <div class="wrapper-sm">
       <!-- <ion-card class="my-card" *ngFor="let cat of category_list" (click)="gotoDetail(cat.category_id,cat.category_name)">
       <div>

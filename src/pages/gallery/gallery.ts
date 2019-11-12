@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Navbar , NavController, NavParams, Events  } from 'ionic-angular';
+import { IonicPage, Navbar , NavController, NavParams, Events,MenuController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { AppSettings } from '../../app/app.settings';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
@@ -24,10 +24,12 @@ export class GalleryPage {
   public title:any;
   public images:any = [];
   public baseUrl = AppSettings.api_url;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, public events: Events,private photoViewer: PhotoViewer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, public events: Events,private photoViewer: PhotoViewer, public menu :MenuController) {
+
     this.category = navParams.get('category_id');
     this.topic_id = navParams.get('topic_id');
-    this.title = navParams.get('title')
+    this.title = navParams.get('title');
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {

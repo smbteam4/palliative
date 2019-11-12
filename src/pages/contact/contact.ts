@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 
 /**
@@ -16,8 +16,9 @@ import { ApiProvider } from '../../providers/api/api';
 })
 export class ContactPage {
   public contactMsg:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider,public menu:MenuController) {
     this.contactMsg ='';
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {

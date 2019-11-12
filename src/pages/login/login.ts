@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { ForgotpasswordPage } from '../forgotpassword/forgotpassword';
-import { VerificationPage } from '../verification/verification'
+import { VerificationPage } from '../verification/verification';
+
 // import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
@@ -24,7 +25,7 @@ export class LoginPage {
   loginForm: FormGroup;
   submitAttempted: boolean = false;
   isLoggedIn:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public menu :MenuController) {
     this.loginForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
         password: ['', Validators.required],
@@ -32,6 +33,7 @@ export class LoginPage {
     });
 
     this.isLoggedIn = (localStorage.getItem('loggedIn') == 'true')? true:false;
+    this.menu.swipeEnable(false);
     // this.loginForm = fb.group({
     //   email: fb.control('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])),
     //   password: ['', Validators.required]
@@ -57,7 +59,7 @@ export class LoginPage {
         localStorage.setItem('loggedIn','true');
         localStorage.setItem('x-access-token',JSON.stringify(result.body.userToken))
       } else if(result.body.type == 'inactive'){
-        this.apiProvider.showLongToast(result.body.message);
+        // this.apiProvider.showLongToast(result.body.message);
         let data = {
           email:this.loginForm.value.email
         }

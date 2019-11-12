@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
 import { LoginPage } from '../login/login'
 import { e } from '@angular/core/src/render3';
 
@@ -21,6 +21,7 @@ export class ForgotpasswordPage {
   forgotForm: FormGroup;
   submitAttempted: boolean = false;
   codeSuccess:boolean = false;
+  title:any;
   @ViewChild("0tp0") el_otp1: ElementRef;
   @ViewChild("0tp2") el_otp2: ElementRef;
   @ViewChild("0tp3") el_otp3: ElementRef;
@@ -32,10 +33,12 @@ export class ForgotpasswordPage {
   public otp3;
   public setPassword_screen:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,  public apiProvider:ApiProvider,  fb: FormBuilder) {
+   
     this.forgotForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
     });
     this.setPassword_screen = false;
+  
 
   }
 
@@ -44,7 +47,22 @@ export class ForgotpasswordPage {
       password:'',
       confirmPassword:''
     }
+    this.setTitle();
   }
+  
+  /**
+   * set title
+   */
+
+   setTitle(){
+    if(!this.codeSuccess && !this.setPassword_screen) {
+      this.title = "Frogot Password"
+    } else if(this.codeSuccess && !this.setPassword_screen) {
+      this.title = "Verify Code"
+    } else if(this.codeSuccess && this.setPassword_screen) {
+      this.title = "Set Password"
+    }
+   }
   sendCode() {
     // this.apiProvider.showLoader();
     let data = {
@@ -54,15 +72,17 @@ export class ForgotpasswordPage {
     setTimeout(()=>{
    
       this.apiProvider.common_post('forgotPassword',data).subscribe((result)=>{
+        console.log(result.body.message)
         if(result.body.status == true) {
+          // this.apiProvider.showLongToast(result.body.message);
           this.codeSuccess = true;
-  
+          this.setTitle();
           // this.navCtrl.setRoot(HomePage);
           // this.navCtrl.setRoot(VerificationPage,{
           //   email:this.forgotForm.value.email
           // });
         } else {
-          
+         
         }
         this.apiProvider.hideLoader();
       })
@@ -78,7 +98,9 @@ export class ForgotpasswordPage {
       }
       this.apiProvider.common_post('verify_reset_code', data).subscribe((result)=>{
         if(result.body.status == true) {
+          // this.apiProvider.showLongToast(result.body.message);
           this.setPassword_screen = true;
+          this.setTitle();
         }
         this.apiProvider.hideLoader();
         this.apiProvider.showLongToast(result.body.messsage)
@@ -96,8 +118,9 @@ export class ForgotpasswordPage {
    
       this.apiProvider.common_post('forgotPassword',data).subscribe((result)=>{
         if(result.body.status == true) {
+          this.apiProvider.showLongToast(result.body.message)
           this.codeSuccess = true;
-  
+          this.setTitle();
           // this.navCtrl.setRoot(HomePage);
           // this.navCtrl.setRoot(VerificationPage,{
           //   email:this.forgotForm.value.email
@@ -131,6 +154,7 @@ export class ForgotpasswordPage {
         this.apiProvider.common_post('setPassword',data).subscribe((result)=>{
           if(result.body.status == true) {
             // this.codeSuccess = true;
+            this.setTitle();
             this.navCtrl.setRoot(LoginPage);
             
           } else {
@@ -156,21 +180,24 @@ export class ForgotpasswordPage {
 
 
   setFocus(event,el) {
+    // console.log(el,'test meee');
     // console.log(event)
     // if(event.target.value.length >1) {
     //   event.target.value = event.target.value.substring(0,event.target.value.length-1);
     //   event.preventDefault();
     // }else {
       
-      if (event.keyCode == 8)
-      return false;
-    else
+    //   if (event.keyCode == 8)
+    //   return false;
+    // else
+    if(event.target.value.length)
       el.setFocus();
     // }
     // document.getElementById('itemtest').focus();
     // event.setFocus();
     // console.log(event.keyCode)
     // let element = event.srcElement.nextElementSibling;
+    // console.log(element,'erledfkdfkldjkjfdkljfldjfldfljlj')
    
   }
 
@@ -185,9 +212,10 @@ export class ForgotpasswordPage {
     //   event.target.value = event.target.value.substring(0,event.target.value.length-1);
     //   event.preventDefault();
     // }else {
-        if (event.keyCode == 8)
-          return false;
-      else
+      //   if (event.keyCode == 8)
+      //     return false;
+      // else
+      if(!event.target.value.length)
         el.setFocus();
     // }
   
@@ -198,6 +226,8 @@ export class ForgotpasswordPage {
       event.target.value = event.target.value.substring(0,event.target.value.length-1);
     }
   }
+
+  
 
 
 

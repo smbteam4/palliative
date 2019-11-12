@@ -64,10 +64,10 @@
               </p>
           <ion-item>
             <ion-label floating>Email Address</ion-label>
-            <ion-input type="text" formControlName="email"></ion-input>
+            <ion-input type="text" formControlName="email" disabled></ion-input>
            
           </ion-item>
-          <p class="validMsg"  *ngIf="(profileForm.controls.email.hasError('required') || profileForm.controls.email.hasError('pattern'))"   style=" border-bottom:none">
+          <p class="validMsg"  *ngIf="(profileForm.controls.email.hasError('required') || profileForm.controls.email.hasError('pattern'))"   style="border-bottom:none">
               Enter a valid mail
              </p>
           <ion-list>

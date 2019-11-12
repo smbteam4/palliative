@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
-import Cropper from 'cropperjs';
+//import Cropper from 'cropperjs';
 
 
 
@@ -29,13 +29,13 @@ export class AppCropperPage implements AfterViewInit  {
        
         let image = document.getElementById('image')as HTMLImageElement;
        
-        this.cropper = new Cropper(image, {
-          viewMode: 1,
-          zoomable: false,
-          zoomOnTouch: false,
-          zoomOnWheel: false,
-          aspectRatio: this.navParams.get('aspect_ratio')
-        });
+        // this.cropper = new Cropper(image, {
+        //   viewMode: 1,
+        //   zoomable: false,
+        //   zoomOnTouch: false,
+        //   zoomOnWheel: false,
+        //   aspectRatio: this.navParams.get('aspect_ratio')
+        // });
        // console.log(this.cropper);
   
    

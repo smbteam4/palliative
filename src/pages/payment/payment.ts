@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { StripeProvider } from '../../providers/stripe/stripe';
 import { PaymentsccessPage } from '../paymentsccess/paymentsccess';
-import { ApiProvider } from '../../providers/api/api' 
+import { ApiProvider } from '../../providers/api/api';
+
 /**
  * Generated class for the PaymentPage page.
  *
@@ -20,8 +21,9 @@ export class PaymentPage {
   paymentForm: FormGroup;
   submitAttempted:boolean;
   userDetails:any={};
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,public StripeProvider:StripeProvider, public ApiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,public StripeProvider:StripeProvider, public ApiProvider:ApiProvider, public menu :MenuController) {
     this.userDetails = JSON.parse(localStorage.getItem('user'));
+    this.menu.swipeEnable(false);
     this.submitAttempted = false;
     this.paymentForm = fb.group({
       name: ['', Validators.required],

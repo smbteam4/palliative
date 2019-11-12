@@ -73,7 +73,7 @@ export class SignupPage {
             this.apiProvider.hideLoader();
             this.submitAttempted = false;
           } else {
-            this.apiProvider.showLongToast(result.body.message);
+            //this.apiProvider.showLongToast(result.body.message);
             this.apiProvider.hideLoader();
           }
          

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Nav, IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
@@ -20,13 +20,14 @@ export class ChangepasswordPage {
   changePasswordForm: FormGroup;
   rootPage: any = HomePage;
   submitAttempted:boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder, public ApiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder, public ApiProvider:ApiProvider, public menu:MenuController) {
     this.submitAttempted = false;
     this.changePasswordForm = fb.group({
       cur_password: ['', Validators.required],
       new_password: ['', Validators.required],
       confirm_password: ['',Validators.required]
     });
+     this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {
@@ -56,7 +57,7 @@ export class ChangepasswordPage {
             this.navCtrl.setRoot(HomePage);
           } else {
             this.ApiProvider.hideLoader();
-            this.ApiProvider.showLongToast(result.body.message);
+            // this.ApiProvider.showLongToast(result.body.message);
           }
         })
       } else {

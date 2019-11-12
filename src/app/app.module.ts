@@ -34,7 +34,7 @@ import { DetailPageModule } from '../pages/detail/detail.module';
 // import { DetailPage } from '../pages/detail/detail';
 // import { SubDetailPage } from '../pages/sub-detail/sub-detail';
 import { SubDetailPageModule } from '../pages/sub-detail/sub-detail.module';
-import { AppCropperPageModule } from '../pages/app-cropper/app-cropper.module'
+//import { AppCropperPageModule } from '../pages/app-cropper/app-cropper.module'
 // import { AboutUsPage } from '../pages/about-us/about-us';
 import { AboutUsPageModule } from '../pages/about-us/about-us.module';
 // import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
@@ -92,7 +92,7 @@ import { ValidationService } from '../providers/validators/validators';
     IonicStorageModule.forRoot(),
     AboutUsPageModule,
     ChangepasswordPageModule,
-    AppCropperPageModule,
+//    AppCropperPageModule,
     ContactPageModule,
     ContentpagesPageModule,
     DesclaimerPageModule,
@@ -141,6 +141,7 @@ import { ValidationService } from '../providers/validators/validators';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
     ApiProvider,
+    PhotoViewer,
     Toast,
     StripeProvider,
     Stripe,
@@ -148,7 +149,7 @@ import { ValidationService } from '../providers/validators/validators';
     ActionSheet,
     Camera,
     Crop,
-    PhotoViewer
+    
   ]
 })
 export class AppModule {}

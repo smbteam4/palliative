@@ -33,7 +33,7 @@
               <ion-col col-12>
                 <ion-item>
                   <ion-label floating>Card Number</ion-label>
-                  <ion-input type="number" maxlength="16" formControlName="card_number"></ion-input>
+                  <ion-input  type="tel" maxlength="16" formControlName="card_number"></ion-input>
                 </ion-item>
                 <p class="validMsg"  *ngIf="(paymentForm.controls.card_number.hasError('required') || paymentForm.controls.card_number.hasError('maxlength') ||  paymentForm.controls.card_number.hasError('pattern')  ||  paymentForm.controls.card_number.hasError('minlength')) && paymentForm.controls.card_number.touched "   style=" border-bottom:none">
                     Enter valid card number 
@@ -58,7 +58,7 @@
               <ion-col col-4>
                 <ion-item >
                   <ion-label floating>CVV</ion-label>
-                  <ion-input type="number"  maxlength="3" formControlName="cvv"></ion-input>
+                  <ion-input type="tel" minlength="3" maxlength="4" formControlName="cvv"></ion-input>
                 </ion-item>
                 <p class="validMsg"  *ngIf="(paymentForm.controls.cvv.hasError('required') || paymentForm.controls.cvv.hasError('maxlength') || paymentForm.controls.cvv.hasError('minlength') || paymentForm.controls.cvv.hasError('pattern'))  && paymentForm.controls.cvv.touched  "   style=" border-bottom:none">
                     Enter CVV 

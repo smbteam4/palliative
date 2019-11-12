@@ -7,7 +7,7 @@ export class AppSettings {
 
 // public static api_url="http://3.210.0.147:7576/";  //Latest live
 public static api_url="https://web.newagesme.com:5055/";
-//public static api_url="http://10.10.10.130:5050/";
+ //public static api_url="http://10.10.10.130:5050/";
   public static toast_delay =2000;
   public static toast_position = 'center';
   public static Loading_text ="Please Wait"

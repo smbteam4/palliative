@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { Nav, Platform,NavController } from 'ionic-angular';
+import { Nav, Platform,NavController ,MenuController, Searchbar} from 'ionic-angular';
 import { ChangepasswordPage } from '../changepassword/changepassword';
 import { ProfilePage } from '../profile/profile';
 import { ContactPage } from '../contact/contact';
@@ -17,14 +17,18 @@ import { DetailPage } from '../detail/detail'
 })
 export class HomePage {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild('searchbar') searchbar:Searchbar;
+  public search_key:any;
   public search:any;
   public search_mode:boolean =false;
   public category_list:any =[];
+  public norList :any=[];
   public base_url:any;
   items = [];
+  public shouldShowCancel:boolean = false;
  // rootPage: any = LoginPage;
  pages: Array<{title: string, component: any}>;
-  constructor(public navCtrl: NavController, public apiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public apiProvider:ApiProvider ,  public menu: MenuController) {
     for (let i = 0; i < 30; i++) {
       this.items.push( this.items.length );
     }
@@ -41,14 +45,34 @@ export class HomePage {
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: '' },
     ];
+    this.search = '';
+
+   this.menu.swipeEnable(true);
   }
 
   ionViewDidLoad() {
+    this.openSearch();
     
     // console.log('ionViewDidLoad VerificationPage');
-    this.search = '';
+    this.search_key = '';
     this.base_url = AppSettings.api_url;
     this.getData();
+  }
+
+  setFilter(){
+    if(this.search_key){
+      this.norList = this.category_list.filter((obj)=>{
+        console.log(obj);
+        if(obj.category_name.includes(this.search_key)){
+          console.log('fdfdjfhdjfhdjhj')
+          return obj;
+        }
+      })
+    } else {
+      this.norList = this.category_list;
+    }
+   
+    console.log(this.norList,'tttttttttttttttttttt');
   }
 
   openPage(page) {
@@ -87,6 +111,7 @@ export class HomePage {
     this.apiProvider.common_get('getCategories',data).subscribe((result)=>{
       if(result.body.status == true){
         this.category_list = result.body.categories;
+        this.norList = result.body.categories;
         // this.category_list = [];
       } else{
         if(this.search_mode){
@@ -118,12 +143,23 @@ export class HomePage {
     this.getData();
   }
 
+  checkFocus(){
+    
+  }
+  openSearch() {
+    setTimeout(() => {  
+        // this.searchbar.setFocus();
+    }, 5);
+}
+
 
   toggleSearch(){
+    
     if(this.search_mode){
       this.search = '';
       this.search_mode =false;
-      this.getData();
+      this.search_key = '';
+      this.norList = this.category_list;
     } else {
       this.search_mode =true;
       this.search = '';
