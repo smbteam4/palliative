@@ -34,31 +34,51 @@
     </ion-navbar>
   </ion-header> -->
   <ion-content >
-      <div class="wrapper">
+      <div class="wrapper ">
 
           <h4 class="text-black text-center">
             Enter the verification code <br />
             that has been sent to your registered mail
           </h4>
-              <div style="display: flex">
-                  <ion-item>
-                      <!-- <ion-label floating>0</ion-label> -->
-                      <ion-input type="tel" maxlength="1"  [(ngModel)]="otp0" #itemInput1  (keyup)='setFocus($event,itemInput2)'  (keyup.backspace)='backHandle($event,itemInput1)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
-                    </ion-item>
-                  
-                    <ion-item>
-                      <!-- <ion-label floating>0</ion-label> -->
-                      <ion-input type="tel" maxlength="1" [(ngModel)]="otp1"   #itemInput2  (keyup)='setFocus($event,itemInput3)'  (keyup.backspace)='backHandle($event,itemInput1)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <!-- <ion-label floating>0</ion-label> -->
-                        <ion-input type="tel" maxlength="1" [(ngModel)]="otp2"  #itemInput3  (keyup)='setFocus($event,itemInput4)'  (keyup.backspace)='backHandle($event,itemInput2)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
-                      </ion-item>
-                      <ion-item>
-                          <!-- <ion-label floating>0</ion-label> -->
-                          <ion-input type="tel" maxlength="1" [(ngModel)]="otp3"  #itemInput4 (keyup)='setFocus($event,itemInput4)'  (keyup.backspace)='backHandle($event,itemInput3)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
-                        </ion-item>
-              </div>
+
+          <div style="display: flex" class=" common-input" >
+         
+              <!-- <P class="text-black text-center">Don't worry it happens to us too. Tell us your email and we'll help you out...</P> -->
+              <!-- <P class="text-black text-center">Enter the reset code that has been sent your email address</P> -->
+              <!-- <ion-item>
+                 
+                 <ion-input type="tel"  maxlength="1"   [(ngModel)]="otp0" #itemInput1   (keyup)='setFocus($event,itemInput2)' (focus)="setInput($event)" (blur)="setInput($event)" (keyup.backspace)='backHandle($event,itemInput1)' required></ion-input>
+              </ion-item> -->
+              <div class="form-row" style="margin:0px 12px;">
+                    <input class="input-text otp-only"  type="tel"  maxlength="1"   [(ngModel)]="otp0" #itemInput1   (keyup)='setFocus($event,itemInput2)' (focus)="setInput($event)" (blur)="setInput($event)" (keyup.backspace)='backHandle($event,itemInput1)' required />
+                    <!-- <label class="label-helper" for="input">Email</label> -->
+                  </div>
+              <!-- <ion-item>
+                
+                 <ion-input type="tel"   maxlength="1"  [(ngModel)]="otp1" #itemInput2   (keyup)='setFocus($event,itemInput3)' (focus)="setInput($event)" (blur)="setInput($event)" (keyup.backspace)='backHandle($event,itemInput1)' required></ion-input>
+              </ion-item> -->
+              <div class="form-row" style="margin:0px 12px;"> 
+                    <input class="input-text otp-only"  type="tel"  maxlength="1"  [(ngModel)]="otp1" #itemInput2   (keyup)='setFocus($event,itemInput3)' (focus)="setInput($event)" (blur)="setInput($event)" (keyup.backspace)='backHandle($event,itemInput1)' required />
+                    <!-- <label class="label-helper" for="input">Email</label> -->
+                  </div>
+              <!-- <ion-item>
+                
+                 <ion-input type="tel"  maxlength="1" [(ngModel)]="otp2" #itemInput3  (keyup)='setFocus($event,itemInput4)' (focus)="setInput($event)" (blur)="setInput($event)"  (keyup.backspace)='backHandle($event,itemInput2)' required></ion-input>
+              </ion-item> -->
+              <div class="form-row" style="margin:0px 12px;">
+                    <input class="input-text otp-only"  type="tel"  maxlength="1" [(ngModel)]="otp2" #itemInput3  (keyup)='setFocus($event,itemInput4)' (focus)="setInput($event)" (blur)="setInput($event)"  (keyup.backspace)='backHandle($event,itemInput2)' required />
+                    <!-- <label class="label-helper" for="input">Email</label> -->
+                  </div>
+              <!-- <ion-item>
+                
+                 <ion-input type="tel" maxlength="1"   [(ngModel)]="otp3" #itemInput4  (keyup)='setFocus($event,itemInput4)' (focus)="setInput($event)" (blur)="setInput($event)"  (keyup.backspace)='backHandle($event,itemInput3)' required></ion-input>
+              </ion-item> -->
+              <div class="form-row" style="margin:0px 12px;">
+                    <input class="input-text otp-only"   type="tel" maxlength="1"   [(ngModel)]="otp3" #itemInput4  (keyup)='setFocus($event,itemInput4)' (focus)="setInput($event)" (blur)="setInput($event)"  (keyup.backspace)='backHandle($event,itemInput3)' required />
+                    <!-- <label class="label-helper" for="input">Email</label> -->
+                  </div>
+           </div>
+             
             
       
             <ion-list>

@@ -5,11 +5,11 @@
   Ionic pages and navigation.
 -->
 
-<ion-content  class="bg-red">
+<!-- <ion-content  class="bg-red">
   <div class="wrapper">
 
    <div class="text-center logo-box">
-      <img src="../../assets/images/log.svg">
+      <img src="assets/images/logo.png" style="max-width: 120px;margin: 0 auto;">
    </div>
    <form  [formGroup]="loginForm" (ngSubmit)="login()">
       <ion-list>
@@ -37,6 +37,46 @@
     </ion-list>
   </form>
     <h6 class="text-white text-center">No account? <b (click)="signupNow()">Sign Up</b></h6>
+  </div>
+ 
+
+</ion-content> -->
+
+
+<ion-content  class="bg-red">
+  <div class="wrapper">
+
+   <div class="text-center logo-box">
+      <img src="assets/images/logo.png" style="max-width: 120px;margin: 0 auto;">
+   </div>
+   <form  [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="common-input white-input">
+     
+      <div class="form-row">
+          <input type="email" class="input-text" id="input" placeholder="Email" formControlName="email" />
+          <!-- <label class="label-helper" for="input">Email</label> -->
+        </div>
+        <p *ngIf="(loginForm.controls.email.hasError('required') || loginForm.controls.email.hasError('pattern')) && submitAttempted "   style=" border-bottom:none">
+            Enter a valid mail
+           </p>
+        <div class="form-row">
+            <input type="password" class="input-text" id="input" placeholder="Password" formControlName="password" />
+            <!-- <label class="label-helper" for="input">Password</label> -->
+          </div>
+          <p *ngIf="loginForm.controls.password.hasError('required')  && submitAttempted"  style=" border-bottom:none">
+              Password required
+             </p>
+         
+  </div>
+    
+    <h6 class="text-white text-right" (click)="forgotPassword()">Forgot password?</h6>
+    <ion-list>
+      <button type="submit" class="primary-btn" [disabled]="!loginForm.valid">LOGIN </button>  
+    </ion-list>
+</form>
+  
+    <h6 class="text-white text-center">No account? <b (click)="signupNow()">Sign up</b></h6>
+
   </div>
  
 

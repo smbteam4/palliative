@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Item, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { Toast } from '@ionic-native/toast';
 import { VerificationPage } from '../verification/verification';
@@ -28,7 +28,7 @@ export class SignupPage {
   message = "";
   submitAttempted: boolean;
   acceptPrivacy:boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, private toast: Toast, fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, private toast: Toast, fb: FormBuilder,public menu:MenuController) {
     this.rootPage = ''
     this.signUpForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)])],
@@ -38,6 +38,7 @@ export class SignupPage {
       agree: [false, Validators.required]
     });
     this.acceptPrivacy = false;
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {

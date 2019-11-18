@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api'
-
+import {HomePage} from '../home/home'
 /**
  * Generated class for the PrivacyPolicyPage page.
  *
@@ -15,8 +15,10 @@ import { ApiProvider } from '../../providers/api/api'
   templateUrl: 'privacy-policy.html',
 })
 export class PrivacyPolicyPage {
+  @ViewChild('navbar') navBar: Navbar;
   public privacyData:any;
   public loggedIn:boolean;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider) {
     this.loggedIn = (JSON.parse(localStorage.getItem('loggedIn')) == 'true')? true: false;
   }
@@ -27,6 +29,12 @@ export class PrivacyPolicyPage {
       this.getPrivacyPolicy(false);
     else
       this.getPrivacyPolicy(true);
+  }
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   getPrivacyPolicy(logChck) {

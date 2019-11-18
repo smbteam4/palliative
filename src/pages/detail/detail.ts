@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild} from '@angular/core';
+import { IonicPage, NavController, NavParams,MenuController,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { SubDetailPage } from '../sub-detail/sub-detail';
 import { SubscriptionPage } from '../subscription/subscription';
 import { AppSettings } from '../../app/app.settings'
+import { HomePage } from '../home/home';
 /**
  * Generated class for the DetailPage page.
  *
@@ -17,16 +18,25 @@ import { AppSettings } from '../../app/app.settings'
   templateUrl: 'detail.html',
 })
 export class DetailPage {
+  @ViewChild('navbar') navBar: Navbar;
   public topicList:any=[];
   public category:any;
   public basicUrl = AppSettings.api_url;
   public category_name:any;
   public usrDetails :any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, public menu:MenuController) {
 
     this.category = navParams.get('category_id');
     this.category_name = navParams.get('category_name');
     this.usrDetails = JSON.parse(localStorage.getItem('user'));
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
 

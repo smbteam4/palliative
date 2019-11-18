@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Nav, IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams,MenuController, Navbar } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
@@ -17,6 +17,7 @@ import { ApiProvider } from '../../providers/api/api';
 })
 export class ChangepasswordPage {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild('navbar') navBar: Navbar;
   changePasswordForm: FormGroup;
   rootPage: any = HomePage;
   submitAttempted:boolean;
@@ -28,6 +29,13 @@ export class ChangepasswordPage {
       confirm_password: ['',Validators.required]
     });
      this.menu.swipeEnable(false);
+  }
+
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {

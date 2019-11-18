@@ -9,122 +9,195 @@
     url("//db.onlinewebfonts.com/t/a78cfad3beb089a6ce86d4e280fa270b.svg#Calibri") format("svg");
 }
 body {
-    font-family: "Calibri" !important;
-    font-size: 16px;
+  font-family: "Calibri" !important;
+  font-size: 16px;
 }
-.bg-red{
-    background: #FF2826 !important;
-  }
-  .bg-red-df{
-    background: #AB1715 !important;
-  }
-  .wrapper{
-    padding: 25px;
+.bg-red {
+  background: #ff2826 !important;
 }
-p{
-    line-height: 24px;
-    font-size: 16px;
+.bg-red-df {
+  background: #ab1715 !important;
 }
-.primary-btn{
-    background: #333E8D;
-    color: #fff;
-    text-transform: uppercase;
-    width: 100%;
-    font-size: 16px;
-    border-radius: 30px;
-    padding: 15px 0px;
-    margin-top: 30px;
+.wrapper {
+  padding: 25px;
+}
+p {
+  line-height: 24px;
+  font-size: 16px;
+}
+.primary-btn {
+  background: #333e8d;
+  color: #fff;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 30px;
+  padding: 15px 0px;
+  margin-top: 30px;
 }
 .checkbox-ios .checkbox-checked {
-    border-color: #FF2826 !important;
-    background-color: #FF2826 !important;
+  border-color: #ff2826 !important;
+  background-color: #ff2826 !important;
 }
-.text-white{
-    color: #fff;
+.text-white {
+  color: #fff;
 }
-.text-black{
-    color: #1E1E1E !important;
+.text-black {
+  color: #1e1e1e !important;
 }
-.text-primary{
-    color: #FF2826 !important;
+.text-primary {
+  color: #ff2826 !important;
 }
-.text-secondary{
-    color: #333E8D !important;
+.text-secondary {
+  color: #333e8d !important;
 }
-.text-center{
-    text-align: center;
+.text-center {
+  text-align: center;
 }
-.text-right{
-    text-align: right;
+.text-right {
+  text-align: right;
 }
-.mt-0{
-    margin-top: 0px;
+.mt-0 {
+  margin-top: 0px;
 }
-.pt-0{
-    padding-top: 0px !important;
+.pt-0 {
+  padding-top: 0px !important;
 }
-.p-0{
-    padding: 0px !important; 
+.p-0 {
+  padding: 0px !important;
 }
-.content-img{
-    height: 160px;
-    
-    img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-        overflow: hidden;
-    }
+.content-img {
+  height: 160px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    overflow: hidden;
+  }
 }
 ion-card {
-    margin: 0px !important;
-    width: 100% !important;
-    padding: 15px;
-    box-shadow: none !important;
-    border: 1px solid #EFEEF1;
-    border-radius: 8px !important;
+  margin: 0px !important;
+  width: 100% !important;
+  padding: 15px;
+  box-shadow: none !important;
+  border: 1px solid #efeef1;
+  border-radius: 8px !important;
 }
 
 .item {
-    background: transparent;
-    padding: 0px;
+  background: transparent;
+  padding: 0px;
 
-    .label{
-        color: #8E8E8E;
-    }
-    .input {
-        color: #262626;
-    }
+  .label {
+    color: #8e8e8e;
+  }
+  .input {
+    color: #262626;
+  }
 }
 
 .item-block .item-inner {
-    border-bottom: 0.55px solid #D3DFEF !important;
+  border-bottom: 0.55px solid #d3dfef !important;
 }
-.border-0{
+.border-0 {
   .item-inner {
-        border-bottom: none !important;
-    }
+    border-bottom: none !important;
+  }
 }
-ion-item{
-    padding: 0px !important;
+ion-item {
+  padding: 0px !important;
 }
-.toolbar-background{
-    background: #FF2826 !important;
-    
+.toolbar-background {
+  background: #ff2826 !important;
 }
-.bar-button{
-    color: #fff !important;
+.bar-button {
+  color: #fff !important;
 }
 .toolbar-title {
-    color: #fff !important;
+  color: #fff !important;
 }
-.list-ios > .item-block:first-child{
-    border-top: 0px !important;
+.list-ios > .item-block:first-child {
+  border-top: 0px !important;
+}
+
+.item {
+  background: red;
+  input {
+    width: 100%;
+    border: none;
+    height: 50px;
+    border-bottom: 1px solid #8e8e8e;
+    color: #262626;
+  }
+  label {
+    color: #8e8e8e;
+  }
+}
+
+.common-input {
+  .form-row {
+    margin-bottom: 20px;
+    padding: 4px 0;
+    position: relative;
+  }
+  .form-block {
+    border: 1px solid #cccccc;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+  }
+
+  .input-text {
+    background-color:transparent;
+    -webkit-appearance: none;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 8px;
+    padding: 8px 4px;
+    position: relative;
+    width: 100%;
+    z-index: 3;
+  }
+
+  .label-helper {
+    position: absolute;
+    opacity: 0;
+    transition: 0.2s bottom, 0.2s opacity;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .input-text:focus + .label-helper,
+  .input-text:invalid + .label-helper {
+    bottom: 95%;
+    font-size: 14px;
+    line-height: 1;
+    opacity: 1;
+    padding: 4px;
+  }
+  
+}
+
+.white-input{
+    input {
+        border-bottom: 1px solid #fff;
+        color: #fff;
+       
+      }
+      label {
+        color: #fff;
+      }
+      .input-text::placeholder{
+            color: #fff;
+        }
+     
 }
 .validMsg {
-    color: red !important;
+  color: red !important;
 }
 .picker-md .picker-prefix, .picker-md .picker-suffix, .picker-md .picker-opt.picker-opt-selected {
-    color:red !important;
+  color:red !important;
 }
+

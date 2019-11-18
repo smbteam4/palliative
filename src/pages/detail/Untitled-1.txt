@@ -1,0 +1,35 @@
+ <div style="display: flex" class="common-input">
+                  <!-- <ion-item>
+                     
+                      <ion-input type="tel" maxlength="1"  [(ngModel)]="otp0" #itemInput1  (keyup)='setFocus($event,itemInput2)'  (keyup.backspace)='backHandle($event,itemInput1)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
+                    </ion-item> -->
+                    <div class="form-row">
+                        <input class="input-text"  type="tel"  maxlength="1"   [(ngModel)]="otp0" #itemInput1   (keyup)='setFocus($event,itemInput2)' (focus)="setInput($event)" (blur)="setInput($event)" (keyup.backspace)='backHandle($event,itemInput1)' required />
+                        <!-- <label class="label-helper" for="input">Email</label> -->
+                      </div>
+                  
+                    <!-- <ion-item>
+                     
+                      <ion-input type="tel" maxlength="1" [(ngModel)]="otp1"   #itemInput2  (keyup)='setFocus($event,itemInput3)'  (keyup.backspace)='backHandle($event,itemInput1)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
+                    </ion-item> -->
+                    <div class="form-row"> 
+                        <input class="input-text"  type="tel"  maxlength="1"  [(ngModel)]="otp1" #itemInput2   (keyup)='setFocus($event,itemInput3)' (focus)="setInput($event)" (blur)="setInput($event)" (keyup.backspace)='backHandle($event,itemInput1)' required />
+                        <!-- <label class="label-helper" for="input">Email</label> -->
+                      </div>
+                    <!-- <ion-item>
+                       
+                        <ion-input type="tel" maxlength="1" [(ngModel)]="otp2"  #itemInput3  (keyup)='setFocus($event,itemInput4)'  (keyup.backspace)='backHandle($event,itemInput2)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
+                      </ion-item> -->
+                      <div class="form-row">
+                          <input class="input-text"  type="tel"  maxlength="1" [(ngModel)]="otp2" #itemInput3  (keyup)='setFocus($event,itemInput4)' (focus)="setInput($event)" (blur)="setInput($event)"  (keyup.backspace)='backHandle($event,itemInput2)' required />
+                          <!-- <label class="label-helper" for="input">Email</label> -->
+                        </div>
+                      <!-- <ion-item>
+                       
+                          <ion-input type="tel" maxlength="1" [(ngModel)]="otp3"  #itemInput4 (keyup)='setFocus($event,itemInput4)'  (keyup.backspace)='backHandle($event,itemInput3)' (focus)="setInput($event)" (blur)="setInput($event)" required></ion-input>
+                        </ion-item> -->
+                        <div class="form-row">
+                            <input class="input-text"   type="tel" maxlength="1"   [(ngModel)]="otp3" #itemInput4  (keyup)='setFocus($event,itemInput4)' (focus)="setInput($event)" (blur)="setInput($event)"  (keyup.backspace)='backHandle($event,itemInput3)' required />
+                            <!-- <label class="label-helper" for="input">Email</label> -->
+                          </div>
+              </div>

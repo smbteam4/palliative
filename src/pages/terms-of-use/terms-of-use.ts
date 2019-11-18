@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams,MenuController,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the TermsOfUsePage page.
@@ -15,11 +16,19 @@ import { ApiProvider } from '../../providers/api/api';
   templateUrl: 'terms-of-use.html',
 })
 export class TermsOfUsePage {
+  @ViewChild('navbar') navBar: Navbar;
   public termsData:any;
   public loggedIn:boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider,public menu:MenuController) {
     this.loggedIn = (JSON.parse(localStorage.getItem('loggedIn')) == 'true')? true: false;
     menu.swipeEnable(false);
+  }
+
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {

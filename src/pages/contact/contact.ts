@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams,MenuController,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ContactPage page.
@@ -15,10 +16,18 @@ import { ApiProvider } from '../../providers/api/api';
   templateUrl: 'contact.html',
 })
 export class ContactPage {
+  @ViewChild('navbar') navBar: Navbar;
   public contactMsg:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider,public menu:MenuController) {
     this.contactMsg ='';
     this.menu.swipeEnable(false);
+  }
+
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {

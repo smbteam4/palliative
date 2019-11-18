@@ -15,7 +15,7 @@
         <ion-grid class="p-0">
             <ion-row *ngIf="images.length>0">
               <ion-col col-4  *ngFor="let img of images" (click)="showImage(img.url)">
-                <img src="{{baseUrl}}{{img.url}}" style="object-fit: cover;">
+                <img src="{{baseUrl}}{{img.url}}" style="object-fit: cover; width: 100%;">
               </ion-col>
               
             </ion-row>

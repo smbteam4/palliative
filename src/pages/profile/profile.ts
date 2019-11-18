@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform , ActionSheetController} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform , ActionSheetController,Navbar} from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
 import { AppPluginProvider } from '../../providers/app-plugin/app-plugin';
@@ -7,6 +7,8 @@ import { Crop } from '@ionic-native/crop';
 import { AppSettings } from '../../app/app.settings'
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { AppCropperPage } from '../app-cropper/app-cropper'
+import {HomePage} from '../home/home'
+
 /**
  * Generated class for the ProfilePage page.
  *
@@ -24,6 +26,7 @@ export class ProfilePage {
   public profileForm:FormGroup;
   public image:any;
   public baseUrl:any;
+  @ViewChild('navbar') navBar: Navbar;
   constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public AppPluginProvider:AppPluginProvider, private crop: Crop,public platform:Platform,public actionSheetCtrl: ActionSheetController) {
     this.profile_Details = JSON.parse(localStorage.getItem('user'));
     this.baseUrl = AppSettings.api_url;
@@ -35,6 +38,12 @@ export class ProfilePage {
     });
     this.image = '';
 
+  }
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {

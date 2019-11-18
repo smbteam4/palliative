@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 
 /**
@@ -16,8 +16,9 @@ import { ApiProvider } from '../../providers/api/api';
 })
 export class DesclaimerPage {
   public desclaimerData:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider, public menu:MenuController) {
     this.getDesclaimer();
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {
@@ -35,6 +36,7 @@ export class DesclaimerPage {
       else 
         this.ApiProvider.showLongToast(result.body.message);
         this.ApiProvider.hideLoader();
-    })
+    });
+
   }
 }

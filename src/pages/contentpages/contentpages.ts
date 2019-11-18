@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 /**
  * Generated class for the ContentpagesPage page.
@@ -20,10 +20,11 @@ export class ContentpagesPage {
   public title:any;
   public descriptionData:any;
   public treatment:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public apiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public apiProvider:ApiProvider,public menu:MenuController) {
     this.category = navParams.get('category_id');
     this.topic_id = navParams.get('topic_id');
-    this.title = navParams.get('title')
+    this.title = navParams.get('title');
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {

@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams,Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Navbar, MenuController } from 'ionic-angular';
 import { HomePage } from '../home/home'
 
 
@@ -17,8 +17,8 @@ import { HomePage } from '../home/home'
 })
 export class PaymentsccessPage {
   @ViewChild('navbar') navBar: Navbar;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menu:MenuController) {
+    this.menu.swipeEnable(false);
   }
   ionViewDidEnter(){
     this.navBar.backButtonClick = () => {

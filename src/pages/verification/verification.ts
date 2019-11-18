@@ -108,7 +108,7 @@ export class VerificationPage {
       if (event.keyCode == 8)
       return false;
     else if(event.target.value.length)
-      el.setFocus();
+      el.focus();
     // }
     // document.getElementById('itemtest').focus();
     // event.setFocus();
@@ -131,7 +131,7 @@ export class VerificationPage {
       // console.log(event.target.value.length,'dfjdjfkdfk');
         // if (event.keyCode == 8  && event.target.value.length == 0)
         if(!event.target.value.length)
-          el.setFocus();
+          el.focus();
       // else {
       //   el.setFocus();
       // }

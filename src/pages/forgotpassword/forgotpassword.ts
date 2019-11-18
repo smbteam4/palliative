@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild  } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { Validators, FormBuilder, FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
 import { LoginPage } from '../login/login'
@@ -32,14 +32,14 @@ export class ForgotpasswordPage {
   public otp2;
   public otp3;
   public setPassword_screen:boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public apiProvider:ApiProvider,  fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public apiProvider:ApiProvider,  fb: FormBuilder, public menu:MenuController) {
    
     this.forgotForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
     });
     this.setPassword_screen = false;
   
-
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {
@@ -191,7 +191,7 @@ export class ForgotpasswordPage {
     //   return false;
     // else
     if(event.target.value.length)
-      el.setFocus();
+      el.focus();
     // }
     // document.getElementById('itemtest').focus();
     // event.setFocus();
@@ -216,7 +216,7 @@ export class ForgotpasswordPage {
       //     return false;
       // else
       if(!event.target.value.length)
-        el.setFocus();
+        el.focus();
     // }
   
   }
