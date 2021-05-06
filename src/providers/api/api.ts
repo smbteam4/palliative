@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 // import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 // import { of } from 'rxjs';
 /*
@@ -22,7 +23,9 @@ export class ApiProvider {
   private baseUrl2 = AppSettings.api_url+'palliativeApp/' 
   // private s3_url = environment.s3_upload;
   private loader: any;
-  constructor( private http: HttpClient, public loadingCtrl: LoadingController, public toastCtrl: ToastController) { }
+  constructor( private http: HttpClient, public loadingCtrl: LoadingController, public toastCtrl: ToastController, private alertCtrl: AlertController) {
+   
+   }
 
 
   
@@ -38,7 +41,9 @@ export class ApiProvider {
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token':''
+        'x-access-token':'',
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache',
       })
     }
     let options = {
@@ -47,6 +52,34 @@ export class ApiProvider {
 
     let cur_url = this.baseUrl + url;
     return this.http.post<any>(cur_url, data, { headers: options.headers, observe: 'response' }).pipe((result)=>{
+        // this.loader.dismiss();
+        return result;
+     
+    })
+  }
+
+  common_get_without_token(url,data){
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache',
+      })
+    }
+    let options = {
+      headers: httpOptions.headers
+    };
+    // let params = new URLSearchParams(); 
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      // httpParams = httpParams.append(key, temp[key]);
+      httpParams = httpParams.append(key, data[key] )
+    });
+    // params.append("data", )
+      // params.append('search',data.search);
+    let cur_url = this.baseUrl + url;
+    // let options2 = { headers: options.headers, params: params };
+    return this.http.get<any>(cur_url,{headers:options.headers,observe:'response',params:httpParams}).pipe((result)=>{
         // this.loader.dismiss();
         return result;
      
@@ -62,7 +95,9 @@ export class ApiProvider {
   common_get(url,data){
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache',
       })
     }
     let options = {
@@ -97,17 +132,20 @@ export class ApiProvider {
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache'
       })
     }
     let options = {
       headers: httpOptions.headers
     };
     let cur_url = '';
-    if(url == 'changePassword')
+    if(url == 'changePassword' || url == 'live_status')
       cur_url = this.baseUrl + url;
     else 
       cur_url = this.baseUrl2 + url;
+
+      console.log(cur_url,'urlllll')
     return this.http.post<any>(cur_url, data, { headers: options.headers, observe: 'response' }).pipe((result)=>{
         // this.loader.dismiss();
         return result;
@@ -149,6 +187,32 @@ export class ApiProvider {
       closeButtonText: 'Ok'
     });
     toast.present();
+  }
+
+  public presentConfirm(msg,title) {
+   
+
+    return new Promise((resolve, reject) =>{
+      this.alertCtrl.create({
+        title: title,
+        message: msg,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              reject('canceled')
+            }
+          },
+          {
+            text: 'Ok',
+            handler: () => {
+             resolve('success')
+            }
+          }
+        ]
+      }).present();
+    })
   }
   
 }

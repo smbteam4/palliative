@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams,MenuController,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+import {HomePage} from '../home/home'
+
 /**
  * Generated class for the AboutUsPage page.
  *
@@ -15,19 +17,27 @@ import { ApiProvider } from '../../providers/api/api';
 })
 export class AboutUsPage {
   public aboutUsData:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public ApiProvider:ApiProvider) {
+  @ViewChild('navbar') navBar: Navbar;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public ApiProvider:ApiProvider,public menu:MenuController) {
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AboutUsPage');
     this.getAboutUs();
   }
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
+  }
 
   getAboutUs() {
     let data = {
       url:'about'
     }
-    this.ApiProvider.common_get('getCmsdetails',data).subscribe((result)=>{
+    this.ApiProvider.common_post_withToken('getCmsdetails',data).subscribe((result)=>{
       if(result.status)
         this.aboutUsData = result.body.data;
       else 

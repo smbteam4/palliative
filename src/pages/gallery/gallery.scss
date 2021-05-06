@@ -4,10 +4,102 @@ ion-col {
     overflow: hidden;
     padding: 0;
     border-radius: 24px;
+
+
     img{
         object-fit: cover;
          height: 100%;
     }
+}
+.wp_ad {
+    min-width: 320px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    img{
+        width: 40px;
+        height: 40px;
+    }
+    p{
+        color: blue;
+    }
+    h6{
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .one {
+      flex: 1;
+      padding: 10px;
+    }
+    .two {
+      flex: 3;
+      padding: 10px;
+    }
+    .three {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  .out {
+    width: 100%;
+    background-color: #ececec;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.imgstyle_footer {
+
+    height: 45px;
+}
+
+.imgouter {
+    display: contents;
+}
+
+.f_title {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.f_title_text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.f_title_cntent {
+    font-weight: regular;
+    font-size: 14px;
+}
+
+
+
+
+
+
+.f_button {
+    border: none;
+    background-color: rgb(255, 24, 24);
+    padding: 5px 10px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-right: 10px;
+    outline: none;
+
+}
+
+.styleadj {
+    display: flex;
+    align-items: center;
 }
 
 }

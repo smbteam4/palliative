@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ads_data.title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #ececec;">
+
+  <div class="wrapper">
+    <div class="out_details">
+
+
+      <ion-card  class="styleadj_details" style="    margin-bottom: 20px!important;">
+        <div style="text-align: center;" class="imgouter"><img style="max-height: 221px;" src="{{ads_data.file}}" class="imgstyle_details"> </div>
+
+        <!-- <div class="f_title">
+          <div class="f_title_text">{{ads_data.title}}</div>
+          <div class="f_title_cntent">{{ads_data.description}}</div>
+        </div> -->
+        
+      </ion-card >
+      <ion-card padding class="detail_block cardads">
+        <h2 style="font-size: 20px;color: #2b2a2a;">{{ads_data.title}}</h2>
+    
+        <p style="font-size: 13px;color: #2b2a2a;margin-bottom: 13px">{{ads_data.description}}</p>
+        <label *ngIf="ads_data.web_url" style="color: #2b2a2a;" for="">WEB : </label>
+        <a *ngIf="ads_data.web_url" style="color: #129dee;text-decoration: underline;margin-bottom: 13px" (click)="inAppBro()">
+          {{ads_data.web_url}}</a>
+        <br>
+        <br>
+        <div *ngIf="ads_data.add_video">
+          <video style="width: 100%;height: 200px;" src="{{ads_data.add_video}}#t=0.1" controls>
+          </video>
+        </div>
+    
+      </ion-card>
+      <!-- <div class="btnout">
+        <button class="f_button_details">Button</button></div> -->
+
+    </div>
+  </div>
+
+</ion-content>

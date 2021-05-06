@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar #navbar>
       <!-- <ion-buttons start>
           <button ion-button icon-only>
             <ion-icon name="arrow-back"></ion-icon>
@@ -15,23 +15,33 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content  >
-
-    <div class="wrapper">
-        <ion-list>
-            <ion-card class="mb-5" *ngFor="let topic of topicList" (click)="gotoSubDetails(topic.topic_title,topic.topic_id)">
-                <button ion-item  class="p-0">
-                   {{topic.topic_title}}
-              </button> 
-            </ion-card>
-            <ion-card class="mb-5" *ngIf="topicList.length == 0">
-                <button ion-item  class="p-0">
-                  No Topics Found
-              </button> 
-            </ion-card>
-           
-            
-            </ion-list>
+<ion-content>
+    <ion-list>
+    <button ion-item class="text-black" *ngFor="let topic of topicList" (click)="gotoSubDetails(topic.topic_title,topic.topic_id)">
+    <div>
+      <div class="thump-box" *ngIf="topic.image" >
+        <img src="{{basicUrl}}{{topic.image}}">
     </div>
+    </div>
+    <div class="thump-box" *ngIf="!topic.image" >
+      <img src="../../assets/images/no-photo.jpg">
+  </div>
+    {{topic.topic_title}}
+    </button>
+    <!-- <button ion-item  class="text-black"  *ngFor="let topic of topicList" (click)="gotoSubDetails(topic.topic_title,topic.topic_id)">
+        <div class="thump-box">
+            <img src="{{basicUrl}}{{topic.image}}">
+          </div>
+          {{topic.topic_title}}
+
+
+    </button>  -->
+    
+    
+  
    
-</ion-content>
+   
+    </ion-list>
+    </ion-content>
+
+

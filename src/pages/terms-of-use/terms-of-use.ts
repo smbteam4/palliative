@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams,MenuController,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the TermsOfUsePage page.
@@ -15,24 +16,51 @@ import { ApiProvider } from '../../providers/api/api';
   templateUrl: 'terms-of-use.html',
 })
 export class TermsOfUsePage {
+  @ViewChild('navbar') navBar: Navbar;
   public termsData:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider) {
+  public loggedIn:boolean;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ApiProvider:ApiProvider,public menu:MenuController) {
+    this.loggedIn = (JSON.parse(localStorage.getItem('loggedIn')) == 'true')? true: false;
+    menu.swipeEnable(false);
+  }
+
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TermsOfUsePage');
-    this.getPrivacyTerms();
+    if(this.loggedIn)
+      this.getPrivacyTerms(true);
+    else  
+      this.getPrivacyTerms(false)
   }
 
-  getPrivacyTerms() {
+  getPrivacyTerms(logChck) {
+    this.ApiProvider.showLoader();
     let data = {
       url:'terms'
     }
-    this.ApiProvider.common_get('getCmsdetails',data).subscribe((result)=>{
-      if(result.status)
-        this.termsData = result.body.data;
-      else 
-        this.ApiProvider.showLongToast(result.body.message);
-    })
+    if(logChck) {
+      this.ApiProvider.common_post_withToken('getCmsdetails',data).subscribe((result)=>{
+        if(result.status)
+          this.termsData = result.body.data;
+        else 
+          this.ApiProvider.showLongToast(result.body.message);
+          this.ApiProvider.hideLoader();
+      })
+    } else {
+      this.ApiProvider.common_post('getCmsdetails',data).subscribe((result)=>{
+        if(result.status)
+          this.termsData = result.body.data;
+        else 
+          this.ApiProvider.showLongToast(result.body.message);
+          this.ApiProvider.hideLoader();
+      })
+    }
+   
   }
 }

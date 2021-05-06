@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Nav, IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams,MenuController, Navbar } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
@@ -17,16 +17,25 @@ import { ApiProvider } from '../../providers/api/api';
 })
 export class ChangepasswordPage {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild('navbar') navBar: Navbar;
   changePasswordForm: FormGroup;
   rootPage: any = HomePage;
   submitAttempted:boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder, public ApiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder, public ApiProvider:ApiProvider, public menu:MenuController) {
     this.submitAttempted = false;
     this.changePasswordForm = fb.group({
       cur_password: ['', Validators.required],
       new_password: ['', Validators.required],
       confirm_password: ['',Validators.required]
     });
+     this.menu.swipeEnable(false);
+  }
+
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {
@@ -49,18 +58,18 @@ export class ChangepasswordPage {
       this.ApiProvider.showLoader();
       if(this.changePasswordForm.value.confirm_password == this.changePasswordForm.value.new_password){
         this.ApiProvider.common_post_withToken('changePassword',data).subscribe((result)=>{
-          if(result.status){
-            this.ApiProvider.showLoader();
+          if(result.body.status){
+            this.ApiProvider.hideLoader();
             this.ApiProvider.showLongToast(result.body.message);
             this.submitAttempted= false;
             this.navCtrl.setRoot(HomePage);
           } else {
-            this.ApiProvider.showLoader();
-            this.ApiProvider.showLongToast(result.body.message);
+            this.ApiProvider.hideLoader();
+            // this.ApiProvider.showLongToast(result.body.message);
           }
         })
       } else {
-        this.ApiProvider.showLoader();
+        this.ApiProvider.hideLoader();
         this.ApiProvider.showLongToast('Password missmatch');
       }
     }

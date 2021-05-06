@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar #navbar>
     <!-- <ion-buttons start>
       <button ion-button icon-only>
         <ion-icon name="arrow-back"></ion-icon>
@@ -37,7 +37,7 @@
 
           </div>
           <div class="edit" (click)="editPic()">
-            <img src="/assets/images/edit.jpg" width="10px" height="10px">
+            <img src="/assets/images/edit.svg" width="16px" height="16px">
             
           </div >
         </div>
@@ -45,13 +45,39 @@
     </div>
   </div>
   <div class="wrapper">
-    <form  [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <form  [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+          <div class="common-input">
+              <div class="form-row">
+                  <input type="text" class="input-text" id="input" placeholder="First name"  formControlName="first_name" />
+                  <label class="label-helper" for="input">First Name</label>
+                </div>
+                <p class="validMsg"  *ngIf="(profileForm.controls.first_name.hasError('required'))"   style=" border-bottom:none">
+                    First Name is required
+                   </p>
+                <div class="form-row">
+                    <input type="text" class="input-text" id="input" placeholder="Last name" formControlName="last_name" />
+                    <label class="label-helper" for="input">Last Name</label>
+                  </div>
+                  <p class="validMsg"  *ngIf="(profileForm.controls.last_name.hasError('required'))"   style=" border-bottom:none">
+                      Last Name is required
+                      </p>
+                  <div class="form-row">
+                      <input type="text" class="input-text" id="input" placeholder="Last name" formControlName="email" disabled />
+                      <label class="label-helper" for="input">Email</label>
+                    </div>
+                    <ion-list>
+                        <button class="primary-btn ">SAVE</button>
+                      </ion-list>
+          </div>
+      </form>
+    
+    <!-- <form  [formGroup]="profileForm" (ngSubmit)="updateProfile()">
         <ion-item>
             <ion-label floating>Firs Name</ion-label>
             <ion-input type="text" formControlName="first_name" ></ion-input>
            
           </ion-item>
-          <p *ngIf="(profileForm.controls.first_name.hasError('required'))"   style=" border-bottom:none">
+          <p class="validMsg"  *ngIf="(profileForm.controls.first_name.hasError('required'))"   style=" border-bottom:none">
               First Name is required
              </p>
           <ion-item>
@@ -59,21 +85,49 @@
             <ion-input type="text" formControlName="last_name"></ion-input>
            
           </ion-item>
-          <p *ngIf="(profileForm.controls.last_name.hasError('required'))"   style=" border-bottom:none">
+          <p class="validMsg"  *ngIf="(profileForm.controls.last_name.hasError('required'))"   style=" border-bottom:none">
               Last Name is required
               </p>
           <ion-item>
             <ion-label floating>Email Address</ion-label>
-            <ion-input type="text" formControlName="email"></ion-input>
+            <ion-input type="text" formControlName="email" disabled></ion-input>
            
           </ion-item>
-          <p *ngIf="(profileForm.controls.email.hasError('required') || profileForm.controls.email.hasError('pattern'))"   style=" border-bottom:none">
+          <p class="validMsg"  *ngIf="(profileForm.controls.email.hasError('required') || profileForm.controls.email.hasError('pattern'))"   style="border-bottom:none">
               Enter a valid mail
              </p>
           <ion-list>
             <button class="primary-btn ">SAVE</button>
           </ion-list>
-    </form>
+    </form> -->
+    <!-- <form  [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+
+        <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-input type="text" formControlName="first_name"></ion-input>
+          </ion-item>
+          <p class="validMsg"  *ngIf="(profileForm.controls.first_name.hasError('required'))"   style=" border-bottom:none">
+              First Name is required
+             </p>
+          <ion-item>
+            <ion-label floating>Last Name </ion-label>
+            <ion-input type="text" formControlName="last_name"></ion-input>
+          </ion-item>
+          <p class="validMsg"  *ngIf="(profileForm.controls.last_name.hasError('required'))"   style=" border-bottom:none">
+              Last Name is required
+              </p>
+          <ion-item>
+            <ion-label floating>Email Address</ion-label>
+            <ion-input type="text" formControlName="email" disabled></ion-input>
+          </ion-item>
+          <p class="validMsg"  *ngIf="(profileForm.controls.email.hasError('required') || profileForm.controls.email.hasError('pattern'))"   style="border-bottom:none">
+              Enter a valid mail
+             </p>
+          <ion-list>
+            <button class="primary-btn ">SAVE</button>
+          </ion-list>
+    </form> -->
+   
     
   </div>
 </ion-content>

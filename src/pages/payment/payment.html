@@ -16,48 +16,108 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper">
+  <div class="wrapper common-input">
     <form [formGroup]="paymentForm" (ngSubmit)="payNow()">
+      <!-- <div class="common-input">
+          <div class="form-row">
+              <input type="text" class="input-text" id="input " formControlName="name" placeholder="Card Holder's Name" />
+              <label class="label-helper" for="input">Card Holder's Name</label>
+            </div>
+            <p class="validMsg"  *ngIf="paymentForm.controls.name.hasError('required') && paymentForm.controls.name.touched "   style=" border-bottom:none">
+                Enter name 
+              </p>
+              <div class="form-row">
+                  <input type="tel" maxlength="16" formControlName="card_number" class="input-text" id="input "  placeholder="Card number" />
+                  <label class="label-helper" for="input">Card Number</label>
+                </div>
+                <p class="validMsg"  *ngIf="(paymentForm.controls.card_number.hasError('required') || paymentForm.controls.card_number.hasError('maxlength') ||  paymentForm.controls.card_number.hasError('pattern')  ||  paymentForm.controls.card_number.hasError('minlength')) && paymentForm.controls.card_number.touched "   style=" border-bottom:none">
+                    Enter valid card number 
+                  </p>
+
+                  <div class="form-row">
+                      <ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY"   min="2019" max="2100-10-31" formControlName="expdate" placeholder="Expiration Date"></ion-datetime>
+                      <label class="label-helper" for="input">Expiration Date</label>
+                    </div>
+                    <p  class="validMsg" *ngIf="(paymentForm.controls.expdate.hasError('required'))  && paymentForm.controls.expdate.touched "   style=" border-bottom:none">
+                        Expiration date is required
+                       </p>
+                       <div class="form-row">
+                          <input type="tel" minlength="3" maxlength="4" formControlName="CVV" class="input-text" id="input "  placeholder="cvv" />
+                          <label class="label-helper" for="input">CVV</label>
+                        </div>
+                        <p class="validMsg"  *ngIf="(paymentForm.controls.cvv.hasError('required') || paymentForm.controls.cvv.hasError('maxlength') || paymentForm.controls.cvv.hasError('minlength') || paymentForm.controls.cvv.hasError('pattern'))  && paymentForm.controls.cvv.touched  "   style=" border-bottom:none">
+                            Enter CVV 
+                          </p>
+        
+                       
+      </div> -->
         <ion-card class="m-0 pt-0">
           <ion-grid>
             <ion-row>
               <ion-col col-12>
-                <ion-item>
-                  <ion-label floating>Card holder name</ion-label>
+                <!-- <ion-item>
+                  <ion-label floating>Card Holder's Name</ion-label>
                   <ion-input type="text" formControlName="name"></ion-input>
                 </ion-item>
-                <p *ngIf="paymentForm.controls.name.hasError('required') && submitAttempted "   style=" border-bottom:none">
+                <p class="validMsg"  *ngIf="paymentForm.controls.name.hasError('required') && paymentForm.controls.name.touched "   style=" border-bottom:none">
                      Enter name 
-                   </p>
+                   </p> -->
+                   <div class="form-row">
+                      <input type="text" class="input-text" id="input " formControlName="name" placeholder="Card Holder's Name" />
+                      <label class="label-helper" for="input">Card Holder's Name</label>
+                    </div>
+                    <p class="validMsg"  *ngIf="paymentForm.controls.name.hasError('required') && paymentForm.controls.name.touched "   style=" border-bottom:none">
+                        Enter name 
+                      </p>
               </ion-col>
               <ion-col col-12>
-                <ion-item>
+                <!-- <ion-item>
                   <ion-label floating>Card Number</ion-label>
-                  <ion-input type="text" formControlName="card_number"></ion-input>
+                  <ion-input  type="tel" maxlength="16" formControlName="card_number"></ion-input>
                 </ion-item>
-                <p *ngIf="(paymentForm.controls.card_number.hasError('required') || paymentForm.controls.card_number.hasError('maxlength'))  && submitAttempted "   style=" border-bottom:none">
-                    Enter name 
-                  </p>
+                <p class="validMsg"  *ngIf="(paymentForm.controls.card_number.hasError('required') || paymentForm.controls.card_number.hasError('maxlength') ||  paymentForm.controls.card_number.hasError('pattern')  ||  paymentForm.controls.card_number.hasError('minlength')) && paymentForm.controls.card_number.touched "   style=" border-bottom:none">
+                    Enter valid card number 
+                  </p> -->
+                  <div class="form-row">
+                      <input type="tel" maxlength="16" formControlName="card_number" class="input-text" id="input "  placeholder="Card number" />
+                      <label class="label-helper" for="input">Card Number</label>
+                    </div>
+                    <p class="validMsg"  *ngIf="(paymentForm.controls.card_number.hasError('required') || paymentForm.controls.card_number.hasError('maxlength') ||  paymentForm.controls.card_number.hasError('pattern')  ||  paymentForm.controls.card_number.hasError('minlength')) && paymentForm.controls.card_number.touched "   style=" border-bottom:none">
+                        Enter valid card number 
+                      </p>
               </ion-col>
               <ion-col col-8>
-                <ion-item>
-                  <ion-label floating></ion-label>
-  
-                  <!-- <ion-input type="date" formControlName="expdate"></ion-input> -->
-                  <ion-datetime display-format="MM/YY" min="2019"  max="3000" pickerFormat="MMMM YYYY" formControlName="expdate" placeholder="Expiration Date"></ion-datetime>
-                </ion-item>
-                <p *ngIf="paymentForm.controls.expdate.hasError('required')  && submitAttempted "   style=" border-bottom:none">
+                  <!-- <ion-item style="margin-top: 19px;">
+                    
+                      <ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY"   min="2019" max="2100-10-31" formControlName="expdate" placeholder="Expiration Date"></ion-datetime>
+                  </ion-item>
+               
+                <p  class="validMsg" *ngIf="(paymentForm.controls.expdate.hasError('required'))  && paymentForm.controls.expdate.touched "   style=" border-bottom:none">
                    Expiration date is required
-                  </p>
+                  </p> -->
+                  <div class="form-row" >
+                      <ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY"   min="2019" max="2100-10-31" formControlName="expdate" placeholder="Expiration Date" style="border-bottom: 1px solid lightgray;"></ion-datetime>
+                      <!-- <label class="label-helper" for="input">Expiration Date</label> -->
+                    </div>
+                    <p  class="validMsg" *ngIf="(paymentForm.controls.expdate.hasError('required'))  && paymentForm.controls.expdate.touched "   style=" border-bottom:none">
+                        Expiration date is required
+                       </p>
               </ion-col>
               <ion-col col-4>
-                <ion-item>
+                <!-- <ion-item >
                   <ion-label floating>CVV</ion-label>
-                  <ion-input type="text" formControlName="cvv"></ion-input>
+                  <ion-input type="tel" minlength="3" maxlength="4" formControlName="cvv"></ion-input>
                 </ion-item>
-                <p *ngIf="(paymentForm.controls.cvv.hasError('required') || paymentForm.controls.cvv.hasError('maxlength'))  && submitAttempted "   style=" border-bottom:none">
-                    Enter name 
-                  </p>
+                <p class="validMsg"  *ngIf="(paymentForm.controls.cvv.hasError('required') || paymentForm.controls.cvv.hasError('maxlength') || paymentForm.controls.cvv.hasError('minlength') || paymentForm.controls.cvv.hasError('pattern'))  && paymentForm.controls.cvv.touched  "   style=" border-bottom:none">
+                    Enter CVV 
+                  </p> -->
+                  <div class="form-row" style="padding: 14px 0;margin:0px">
+                      <input type="tel" minlength="3" maxlength="4" formControlName="cvv" class="input-text" id="input "  placeholder="cvv" />
+                      <label class="label-helper" for="input">CVV</label>
+                    </div>
+                    <p class="validMsg"  *ngIf="(paymentForm.controls.cvv.hasError('required') || paymentForm.controls.cvv.hasError('maxlength') || paymentForm.controls.cvv.hasError('minlength') || paymentForm.controls.cvv.hasError('pattern'))  && paymentForm.controls.cvv.touched  "   style=" border-bottom:none">
+                        Enter CVV 
+                      </p>
                 
               </ion-col>
             </ion-row>
@@ -66,6 +126,7 @@
         <ion-list>
           <button type="submit" class="primary-btn" [disabled]="!paymentForm.valid">Confirm Payment</button>
         </ion-list>
+        
     </form>
   
   </div>

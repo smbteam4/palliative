@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-      <!-- <ion-buttons start>
+    <!-- <ion-buttons start>
           <button ion-button icon-only>
             <ion-icon name="arrow-back"></ion-icon>
           </button>
@@ -15,23 +15,50 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content  >
+<ion-content>
 
-    <div class="wrapper">
-        <ion-list>
-            <ion-card class="mb-5" *ngFor="let sub of subjectList" (click)="goToSubDetails(sub.title)">
-                <button ion-item  class="p-0">
-                   {{sub.title}}
-              </button> 
-            </ion-card>
-            <ion-card class="mb-5" *ngIf="subjectList.length == 0">
-                <button ion-item  class="p-0">
-                  No Topics Found
-              </button> 
-            </ion-card>
-           
-            
-            </ion-list>
-    </div>
-   
+  <div class="wrapper">
+    <ion-list>
+      <ion-card class="mb-5" *ngFor="let sub of subjectList" (click)="goToSubDetails(sub.title)">
+        <button ion-item class="p-0">
+          {{sub.title}}
+        </button>
+      </ion-card>
+      <ion-card class="mb-5" *ngIf="subjectList.length == 0">
+        <button ion-item class="p-0">
+          No Topics Found
+        </button>
+      </ion-card>
+
+
+    </ion-list>
+  </div>
+
 </ion-content>
+
+
+
+<ion-footer *ngIf="add_details.title">
+  <div class="out">
+
+   
+    <div class="styleadj">
+      <ion-icon style="margin: 13px;
+      color: #fff;
+       background-color: red;
+       padding: 2px 5px;
+      
+       border-radius: 14px;" name="close" (click)="add_details.title  = ''"></ion-icon>
+      <div (click)="presentProfileModal()" class="imgouter"><img src="{{add_details.file}}" class="imgstyle_footer"> </div>
+
+      <div (click)="presentProfileModal()" class="f_title">
+        <div class="f_title_text">{{add_details.title  | slice:0:20}}</div>
+        <div class="f_title_cntent">{{add_details.description  | slice:0:30}}</div>
+      </div>
+    </div>
+
+    <!-- <button class="f_button">Button</button> -->
+
+  </div>
+
+</ion-footer>

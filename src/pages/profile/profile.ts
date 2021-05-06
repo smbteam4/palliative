@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform , ActionSheetController,Navbar} from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ApiProvider } from '../../providers/api/api';
 import { AppPluginProvider } from '../../providers/app-plugin/app-plugin';
@@ -7,6 +7,8 @@ import { Crop } from '@ionic-native/crop';
 import { AppSettings } from '../../app/app.settings'
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { AppCropperPage } from '../app-cropper/app-cropper'
+import {HomePage} from '../home/home'
+
 /**
  * Generated class for the ProfilePage page.
  *
@@ -24,7 +26,8 @@ export class ProfilePage {
   public profileForm:FormGroup;
   public image:any;
   public baseUrl:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public AppPluginProvider:AppPluginProvider, private crop: Crop,public platform:Platform) {
+  @ViewChild('navbar') navBar: Navbar;
+  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public AppPluginProvider:AppPluginProvider, private crop: Crop,public platform:Platform,public actionSheetCtrl: ActionSheetController) {
     this.profile_Details = JSON.parse(localStorage.getItem('user'));
     this.baseUrl = AppSettings.api_url;
     this.profileForm = fb.group({
@@ -35,6 +38,12 @@ export class ProfilePage {
     });
     this.image = '';
 
+  }
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {
@@ -53,9 +62,11 @@ export class ProfilePage {
 
   updateProfile(){
     // console.log(this.profileForm.valid,'validddddddddddddddd');
-    this.apiProvider.showLoader();
+   
     if(this.image == '') {
+     
       if(this.profileForm.valid){
+        this.apiProvider.showLoader();
         this.apiProvider.common_post_withToken('saveUser',this.profileForm.value).subscribe((result)=>{
           if(result.body.status == true) {
             this.image = '';
@@ -74,13 +85,16 @@ export class ProfilePage {
         })
       }
     } else {
-      let data = {
-        prof_image:this.image,
-        email:this.profileForm.value.email,
-        first_name:this.profileForm.value.first_name,
-        last_name:this.profileForm.value.last_name
-      }
-      this.apiProvider.common_post_withToken('saveUser',data).subscribe((result)=>{
+      
+      if(this.profileForm.valid){
+        let data = {
+          prof_image:this.image,
+          email:this.profileForm.value.email,
+          first_name:this.profileForm.value.first_name,
+          last_name:this.profileForm.value.last_name
+        }
+        this.apiProvider.showLoader();
+        this.apiProvider.common_post_withToken('saveUser',data).subscribe((result)=>{
           if(result.body.status == true) {
             this.image = '';
             this.profile_Details.profileImage = result.body.prof_image;
@@ -95,18 +109,47 @@ export class ProfilePage {
             this.apiProvider.showLongToast(result.body.message);
           }
       })
+      }
+      
     }
    
   }
 
   editPic() {
-    this.AppPluginProvider.showActionSheet()
-    .then((sheetIndex: number)=> this.actionSheetSuccess(sheetIndex))
-    .catch((error)=> this.actionError(error));
+    // this.AppPluginProvider.showActionSheet()
+    // .then((sheetIndex: number)=> this.actionSheetSuccess(sheetIndex))
+    // .catch((error)=> this.actionError(error));
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose Source',
+      buttons: [
+        {
+          text: 'Open Gallery',
+          icon:'md-images',
+          handler: () => {
+            this.actionSheetSuccess(2);
+          }
+        },{
+          text: 'Camera',
+          icon:'md-camera',
+          handler: () => {
+            this.actionSheetSuccess(1);
+          }
+        },{
+          text: 'Cancel',
+          role: 'destructive',
+          icon:'md-close-circle',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
   
   actionError(err){
     console.log(err);
+    this.apiProvider.hideLoader();
   }
 
   actionSheetSuccess(sheetIndex: number){ 

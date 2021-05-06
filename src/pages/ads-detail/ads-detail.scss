@@ -1,0 +1,222 @@
+page-sub-detail {
+    .item-block .item-inner {
+        border-bottom: 0 !important;
+        
+    }
+    ion-label{
+        color: #262626 !important;
+    }
+    .mb-5{
+        margin-bottom: 20px !important;
+    }
+    .wp_ad {
+        min-width: 320px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: #fff;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        img{
+            width: 40px;
+            height: 40px;
+        }
+        p{
+            color: blue;
+        }
+        h6{
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .one {
+          flex: 1;
+          padding: 10px;
+        }
+        .two {
+          flex: 3;
+          padding: 10px;
+        }
+        .three {
+          flex: 1;
+          text-align: center;
+        }
+      }
+
+      .out {
+        width: 100%;
+        background-color: #ececec;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+
+    .imgstyle_footer {
+
+        height: 45px;
+    }
+
+    .imgouter {
+        display: contents;
+    }
+
+    .f_title {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .f_title_text {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .f_title_cntent {
+        font-weight: regular;
+        font-size: 14px;
+    }
+
+
+
+
+
+
+    .f_button {
+        border: none;
+        background-color: rgb(255, 24, 24);
+        padding: 5px 10px;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 4px;
+        margin-right: 10px;
+        outline: none;
+
+    }
+
+    .styleadj {
+        display: flex;
+        align-items: center;
+    }
+
+    /////@at-root
+    .out_details {
+
+        background-color: #ececec;
+        align-items: center;
+        display: inline-block;
+
+    }
+
+    .imgstyle_details {
+
+        width: 100%;
+    }
+
+    // .imgouter {
+    //     display: border-left: 1px solid #000;
+        
+    // }
+
+    .f_title {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .f_title_text {
+        font-weight: bold;
+        font-size: 17px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .f_title_cntent {
+        font-weight: regular;
+        font-size: 14px;
+    }
+
+
+
+
+
+
+    .f_button_details {
+        border: none;
+        background-color: rgb(255, 24, 24);
+        padding: 5px 10px;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 4px;
+        outline: none;
+        width: 100%;
+        height: 35px;
+
+
+    }
+
+    .btnout {
+        margin: 10px;
+    }
+
+    .styleadj_details {
+
+        align-items: center;
+    }
+
+    .detail_block {
+        h2 {
+            color: #fff;
+            font-size: 18px;
+        }
+        label {
+            color: #fff;
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+        p {
+            color: #fff;
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        ion-col {
+            padding: 0 3px;
+        }
+        .btn_red {
+            background-color: #fff;
+            padding: 10px;
+            margin-right: 5px;
+            font-weight: 500;
+            font-size: 15px;
+            ion-icon {
+                margin-right: 5px;
+            }
+        }
+        .btn_lightgrn {
+            background-color: #fff;
+            padding: 10px;
+            margin-right: 5px;
+            font-weight: 500;
+            font-size: 15px;
+            ion-icon {
+                margin-right: 5px;
+            }
+        }
+        .btn_lightgn {
+            background-color: #9bda67;
+            padding: 10px;
+            margin-right: 5px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+    }
+    .cardads{
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 15px;
+      margin: 10px; 
+     }
+    
+}

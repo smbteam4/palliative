@@ -6,7 +6,7 @@
 -->
 
 <ion-header>
-    <ion-navbar>
+    <ion-navbar #navbar>
       <ion-buttons start>
         <!-- <button ion-button icon-only>
           <ion-icon name="arrow-back"></ion-icon>
@@ -20,13 +20,13 @@
     <div class="wrapper">
 
       <ion-item>
-          <ion-label floating>type here....</ion-label>
+          <ion-label floating>Type here...</ion-label>
 
           <ion-textarea [(ngModel)]="contactMsg" ></ion-textarea>
         </ion-item>
         
       <ion-list>
-        <button class="primary-btn ">SAVE</button>
+        <button class="primary-btn " (click)="saveContact();">SEND</button>
       </ion-list>
     </div>
   </ion-content>

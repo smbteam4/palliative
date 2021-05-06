@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { Nav, Platform,NavController } from 'ionic-angular';
+import { Nav, Platform,NavController ,MenuController, Searchbar} from 'ionic-angular';
 import { ChangepasswordPage } from '../changepassword/changepassword';
 import { ProfilePage } from '../profile/profile';
 import { ContactPage } from '../contact/contact';
@@ -17,14 +17,21 @@ import { DetailPage } from '../detail/detail'
 })
 export class HomePage {
   @ViewChild(Nav) nav: Nav;
+
+  @ViewChild('searchbar') searchbar:Searchbar;
+  public search_key:any;
   public search:any;
   public search_mode:boolean =false;
   public category_list:any =[];
+  public norList :any=[];
   public base_url:any;
+  public noImage:any;
   items = [];
+  public shouldShowCancel:boolean = false;
  // rootPage: any = LoginPage;
  pages: Array<{title: string, component: any}>;
-  constructor(public navCtrl: NavController, public apiProvider:ApiProvider) {
+  constructor(public navCtrl: NavController, public apiProvider:ApiProvider ,  public menu: MenuController) {
+    this.noImage = false;
     for (let i = 0; i < 30; i++) {
       this.items.push( this.items.length );
     }
@@ -37,18 +44,38 @@ export class HomePage {
       { title: 'About Us', component: ContentpagesPage },
       // { title: 'Terms of Use', component: VerificationPage },
       // { title: 'Privacy Policy', component: ForgotpasswordPage },
-      { title: 'Disclamer', component: ChangepasswordPage },
+      // { title: 'Disclamer', component: ChangepasswordPage },
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: '' },
     ];
+    this.search = '';
+
+   this.menu.swipeEnable(true);
   }
 
   ionViewDidLoad() {
+    this.openSearch();
     
     // console.log('ionViewDidLoad VerificationPage');
-    this.search = '';
+    this.search_key = '';
     this.base_url = AppSettings.api_url;
     this.getData();
+  }
+
+  setFilter(){
+    if(this.search_key){
+      this.norList = this.category_list.filter((obj)=>{
+        console.log(obj);
+        if(obj.category_name.includes(this.search_key)){
+          console.log('fdfdjfhdjfhdjhj')
+          return obj;
+        }
+      })
+    } else {
+      this.norList = this.category_list;
+    }
+   
+    console.log(this.norList,'tttttttttttttttttttt');
   }
 
   openPage(page) {
@@ -83,11 +110,36 @@ export class HomePage {
     let data = {
       search:this.search
     }
-    this.apiProvider.common_get('getCategories',data).subscribe((result)=>{
+    this.apiProvider.showLoader();
+    this.apiProvider.common_post_withToken('getCategories',data).subscribe((result)=>{
+      if(result.body.status == true){
+        this.noImage = true;
+        this.category_list = result.body.categories;
+        this.norList = result.body.categories;
+        // this.category_list = [];
+      } else{
+        if(this.search_mode){
+          this.search = ''
+          this.getData2()
+        }
+      }
+      this.apiProvider.hideLoader();
+    })
+  }
+
+  getData2(){
+    let data = {
+      search:this.search
+    }
+    // this.apiProvider.showLoader();
+    this.apiProvider.common_post_withToken('getCategories',data).subscribe((result)=>{
       if(result.body.status == true){
         this.category_list = result.body.categories;
+        // this.category_list = [];
+      } else{
+        
       }
-     
+      // this.apiProvider.hideLoader();
     })
   }
   getItems($eve) {
@@ -95,11 +147,37 @@ export class HomePage {
     this.getData();
   }
 
+  checkFocus(){
+    
+  }
+  openSearch() {
+    setTimeout(() => {  
+        // this.searchbar.setFocus();
+    }, 5);
+}
+
+
   toggleSearch(){
-    this.search_mode = (this.search_mode)?false:true;
-    if(!this.search_mode){
+    
+    if(this.search_mode){
+      this.search = '';
+      this.search_mode =false;
+      this.search_key = '';
+      this.norList = this.category_list;
+    } else {
+      this.search_mode =true;
       this.search = '';
     }
+    // this.search_mode = (this.search_mode)?false:true;
+    // if(!this.search_mode){
+    //   this.search = '';
+    // } 
+  }
+  
+  closeSearch(){
+    this.search_mode = (this.search_mode)?false:true;
+    this.search = '';
+    this.getData();
   }
 
 }

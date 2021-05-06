@@ -9,17 +9,44 @@
       <ion-title>Images </ion-title>
     </ion-navbar>
   </ion-header>
-
+  <!-- (baseUrl + img.url) ||  -->
 <ion-content >
     <div class="wrapper">
         <ion-grid class="p-0">
             <ion-row *ngIf="images.length>0">
-              <ion-col col-4  *ngFor="let img of images"><img src="{{baseUrl}}{{img}}" ></ion-col>
+              <ion-col col-4  *ngFor="let img of images" (click)="showImage(img.url)">
+                  <!-- <img-loader [src]="{{baseUrl + img.url}}" useImg ></img-loader> -->
+                <img src="{{ (baseUrl + img.url) }}" style="object-fit: cover; width: 100%;">
+              </ion-col>
               
             </ion-row>
             <ion-row *ngIf="images.length == 0">
-              <ion-col>No images found</ion-col>
+              <ion-col *ngIf="noImage">No Image</ion-col>
             </ion-row>
           </ion-grid>
       </div>
 </ion-content>
+<ion-footer *ngIf="add_details.title">
+  <div class="out">
+
+   
+    <div class="styleadj">
+      <ion-icon style="margin: 13px;
+      color: #fff;
+       background-color: red;
+       padding: 2px 5px;
+      
+       border-radius: 14px;" name="close" (click)="add_details.title  = ''"></ion-icon>
+      <div (click)="presentProfileModal()" class="imgouter"><img src="{{add_details.file}}" class="imgstyle_footer"> </div>
+
+      <div (click)="presentProfileModal()" class="f_title">
+        <div class="f_title_text">{{add_details.title  | slice:0:20}}</div>
+        <div class="f_title_cntent">{{add_details.description  | slice:0:30}}</div>
+      </div>
+    </div>
+
+    <!-- <button class="f_button">Button</button> -->
+
+  </div>
+
+</ion-footer>

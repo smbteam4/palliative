@@ -71,7 +71,7 @@ export class StripeProvider {
         // })
       }).catch((error) => {
         reject(error);
-        // console.error(error)
+        console.error(error)
         // console.log('hereeeeeeeeee',error);
       });
       

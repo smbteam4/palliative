@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
+
+
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
@@ -22,6 +24,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { TermsOfUsePage } from '../pages/terms-of-use/terms-of-use';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
 import { DesclaimerPage } from '../pages/desclaimer/desclaimer';
+import { ApiProvider } from '../providers/api/api'
 // import { DetailPage } from '../pages/detail/detail';
 
 
@@ -31,11 +34,12 @@ import { DesclaimerPage } from '../pages/desclaimer/desclaimer';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage;
+  public showHide:any;
 
   pages: Array<{title: string, component: any}>;
   isLoggedIn:any;
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public ApiProvider:ApiProvider) {
     this.initializeApp();
 
     this.pages = [
@@ -47,7 +51,7 @@ export class MyApp {
       { title: 'About Us', component: AboutUsPage },
       { title: 'Terms of Use', component: TermsOfUsePage },
       { title: 'Privacy Policy', component: PrivacyPolicyPage },
-      { title: 'Disclamer', component: DesclaimerPage },
+      // { title: 'Disclaimer', component: DesclaimerPage },
       { title: 'Contact Us', component: ContactPage },
       { title: 'Logout', component: LoginPage },
     ];
@@ -57,18 +61,52 @@ export class MyApp {
 
   }
 
+  ionViewDidLoad(){
+    console.log('here meteterdfdfd');
+   
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      setTimeout(()=>{
+        this.splashScreen.hide();
+      },1000)
+      
     });
+
+    this.ApiProvider.common_post_withToken('live_status',{}).subscribe((result)=>{
+      if(result.body.status) {
+        localStorage.setItem('live_status',result.body.live_status);
+        this.showHide = result.body.live_status;
+        this.setCurPage();
+      }
+      // console.log('here',result);
+    },(error)=>{
+      console.log('here',error);
+      this.setCurPage();
+      localStorage.setItem('live_status','true');
+      this.showHide= false;
+    })
+  
+
+  
 
     // console.log(this.isLoggedIn,'this.isLoggedIn');
     // this.isLoggedIn = (localStorage.getItem('loggedIn') == 'true')? true:false;
     
   }
+
+    setCurPage(){
+      if(this.isLoggedIn) {
+        // console.log('heereeeeeeee')
+        // this.nav.setRoot(HomePage);
+      } else {
+        this.nav.setRoot(LoginPage);
+      }
+    }
 
   
   
@@ -92,9 +130,19 @@ export class MyApp {
 
   logout(){
     // console.log('hereeeee');
-    localStorage.clear();
-    localStorage.removeItem('user');
-    localStorage.removeItem('loggedIn');
-    this.nav.setRoot(LoginPage);
+    this.ApiProvider.presentConfirm('Are you sure you want to logout?','Palliative').then((result)=>{
+      localStorage.clear();
+      localStorage.removeItem('user');
+      localStorage.removeItem('loggedIn');
+      this.nav.setRoot(LoginPage);
+    }).catch((err)=>{
+      console.log(err);
+    })
+   
+    
+  }
+
+  menuClosed(){
+    
   }
 }

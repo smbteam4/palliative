@@ -12,19 +12,21 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class AppPluginProvider {
   actionSheetOptons: ActionSheetOptions = {
     title: "Choose your action",
-    buttonLabels: ['Photo', "Gallery"],
+    buttonLabels: ['Photo', "Gallery","Cancel"],
+    androidEnableCancelButton : true, 
     addCancelButtonWithLabel: 'Cancel',
-    androidTheme: 1
+//    androidTheme: 1,
+//    position: [20, 40]
   };
   cameraOptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     allowEdit: true,
-    correctOrientation: true,
+    //correctOrientation: true,
     mediaType: this.camera.MediaType.PICTURE,
-    targetWidth:100,
-    targetHeight:100
+    targetWidth: 1000,
+    targetHeight: 1000,
   }
   constructor(public http: HttpClient,private actionSheet: ActionSheet, private camera: Camera) {
     // console.log('Hello AppPluginProvider Provider');
@@ -44,7 +46,7 @@ export class AppPluginProvider {
 
     if(sheetIndex == 1) this.cameraOptions.sourceType = this.camera.PictureSourceType.CAMERA;
 
-    if(sheetIndex == 2) this.cameraOptions.sourceType = this.camera.PictureSourceType.SAVEDPHOTOALBUM;
+    if(sheetIndex == 2) this.cameraOptions.sourceType = 0;
 
     return this.camera.getPicture(this.cameraOptions)
   }

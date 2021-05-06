@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, MenuController,Navbar } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { PaymentPage } from '../payment/payment';
+import {HomePage} from '../home/home'
 
 // import { ContentpagesPage } from '../contentpages/contentpages';
 
@@ -18,26 +19,35 @@ import { PaymentPage } from '../payment/payment';
   templateUrl: 'subscription.html',
 })
 export class SubscriptionPage {
+  @ViewChild('navbar') navBar: Navbar;
   public category:any;
   public category_name:any;
   public topic_id:any;
-  public subscriptionDetails:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider) {
-   
+  public subscriptionDetails:any={};
+  public userDetaills:any={};
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider:ApiProvider, public menu:MenuController) {
+    this.menu.swipeEnable(false);
+  }
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SubscriptionPage');
+    // console.log('ionViewDidLoad SubscriptionPage');
     this.getDescription();
   }
   getDescription(){
-    
-    this.apiProvider.common_get('getSubscription',{}).subscribe((result)=>{
-      if(result.body.status == true) {
-        this.subscriptionDetails =result.body.Subscription;
-        console.log(this.subscriptionDetails)
+    this.apiProvider.showLoader();
+    this.apiProvider.common_post_withToken('getSubscription',{}).subscribe((result)=>{
+      // if(result.body.status == true) {
+        this.subscriptionDetails =result.body;
+        // console.log(this.subscriptionDetails)
         // this.topicList = result.body.categories;
-      }
+      // }
+      this.apiProvider.hideLoader();
     })
   }
 

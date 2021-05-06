@@ -14,7 +14,7 @@
           </button>
       </ion-buttons> -->
 
-    <ion-title>Signup</ion-title>
+    <ion-title>SIGN UP</ion-title>
 
     <!-- <ion-buttons end>
         <button ion-button icon-only>
@@ -34,32 +34,99 @@
   </ion-navbar>
 </ion-header> -->
 <ion-content >
-    <div class="wrapper">
-        <ion-list>
-            <ion-item>
-              <ion-label floating>First Name</ion-label>
-              <ion-input type="text" [(ngModel)]="user.first_name"></ion-input>
-            </ion-item>
-          
-            <ion-item>
-              <ion-label floating>Last Name</ion-label>
-              <ion-input type="text" [(ngModel)]="user.last_name"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>Email Address</ion-label>
-                <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label floating>Password</ion-label>
-                  <ion-input type="Password" [(ngModel)]="user.password"></ion-input>
-                </ion-item>
-          </ion-list>
-          <ion-item class="border-0">
-              <ion-label class="text-black">I agree to the <span class="text-primary"> Terms</span> and <span class="text-primary">Privacy</span></ion-label>
-              <ion-checkbox  checked="true" [(ngModel)]="user.agree"></ion-checkbox>
-            </ion-item>
+    <!-- <div class="wrapper">
+      <form action="" [formGroup]="signUpForm" (submit)="signUpNow()">
           <ion-list>
-            <button class="primary-btn " [disabled]="isInvalid" (click)="signUpNow()">SIGNUP</button>  
+              <ion-item>
+                <ion-label floating>First Name</ion-label>
+                <ion-input type="text" formControlName="first_name" ></ion-input>
+                
+              </ion-item>
+              <p class="validMsg" *ngIf="(signUpForm.controls.first_name.hasError('required')) && submitAttempted "   style=" border-bottom:none">
+                  Please provide your first name
+                 </p>
+              <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input type="text" formControlName="last_name" ></ion-input>
+              </ion-item>
+              <p  class="validMsg" *ngIf="(signUpForm.controls.last_name.hasError('required')) && submitAttempted "   style=" border-bottom:none">
+                Please provide your last name
+               </p>
+              <ion-item>
+                  <ion-label floating>Email Address</ion-label>
+                  <ion-input type="text" formControlName="email"></ion-input>
+                </ion-item>
+                <p class="validMsg"  *ngIf="(signUpForm.controls.email.hasError('required') || signUpForm.controls.email.hasError('pattern')) && submitAttempted "   style=" border-bottom:none">
+                  Please enter a valid email
+                 </p>
+                <ion-item>
+                    <ion-label floating>Password</ion-label>
+                    <ion-input type="Password" formControlName="password" ></ion-input>
+                  </ion-item>
+                  <p class="validMsg" *ngIf="signUpForm.controls.password.hasError('required')  && submitAttempted "   style=" border-bottom:none">
+                    Create a password
+                   </p>
+
+                   <h6 class="text-black" style="font-size: 1.5rem;
+                   line-height: 2.5rem;">By signing up you are agreeing to the <span class="text-primary" (click)="goToTerms()"> Terms</span> and <span class="text-primary"(click)="goToPrivacy()">Privacy</span></h6>
+
+            </ion-list>
+
+              
+             
+            <ion-list>
+              <button class="primary-btn ">SIGN UP</button>  
+            </ion-list>
+      </form>
+        
+    </div> -->
+    <div class="wrapper">
+        <form action="" [formGroup]="signUpForm" (submit)="signUpNow()">
+        <div class="common-input">
+            <div class="form-row">
+                <input type="text" class="input-text" id="input" formControlName="first_name" placeholder="First Name" />
+                <label class="label-helper" for="input">First Name</label>
+              </div>
+              <p class="validMsg" *ngIf="(signUpForm.controls.first_name.hasError('required')) && submitAttempted "   style=" border-bottom:none">
+                  Please provide your first name
+                 </p>
+              <div class="form-row">
+                  <input type="text" class="input-text" id="input"  formControlName="last_name" placeholder="Last Name" />
+                  <label class="label-helper" for="input">Last Name</label>
+                </div>
+                <p  class="validMsg" *ngIf="(signUpForm.controls.last_name.hasError('required')) && submitAttempted "   style=" border-bottom:none">
+                    Please provide your last name
+                   </p>
+                <div class="form-row">
+                    <input type="email" class="input-text" id="input" placeholder="Email Address"  formControlName="email" />
+                    <label class="label-helper" for="input">Email Address</label>
+                  </div>
+                  <p class="validMsg"  *ngIf="(signUpForm.controls.email.hasError('required') || signUpForm.controls.email.hasError('pattern')) && submitAttempted "   style=" border-bottom:none">
+                      Please enter a valid email
+                     </p>
+                  <div class="form-row">
+                      <input type="password" class="input-text" formControlName="password" id="input" placeholder="Password" />
+                      <label class="label-helper" for="input">Password</label>
+                    </div>
+                    <p class="validMsg" *ngIf="signUpForm.controls.password.hasError('required')  && submitAttempted "   style=" border-bottom:none">
+                        Create a password
+                       </p>
+                       <h6 class="text-black" style="font-size: 1.5rem;
+                       line-height: 2.5rem;">By signing up you are agreeing to the <span class="text-primary" (click)="goToTerms()"> Terms</span> and <span class="text-primary"(click)="goToPrivacy()">Privacy</span></h6>
+        </div>
+          
+
+           
+<!-- 
+          <ion-item class="border-0">
+              <ion-label class="text-black">I agree to the <span class="text-primary" (click)="goToTerms()"> Terms</span> and <span class="text-primary" (click)="goToPrivacy()">Privacy</span></ion-label>
+              <ion-checkbox  checked="true"></ion-checkbox>
+            </ion-item> -->
+          <ion-list>
+            <button type="submit" class="primary-btn ">SIGNUP</button>  
           </ion-list>
+
+        </form>
+
     </div>
 </ion-content>

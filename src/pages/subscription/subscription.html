@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar #navbar>
       <!-- <ion-buttons start>
           <button ion-button icon-only>
             <ion-icon name="arrow-back"></ion-icon>
@@ -19,25 +19,22 @@
     <div class="wrapper">
         <ion-card class="m-0 ">
           <ion-grid class="p-0">
-            <ion-row>
-              <ion-col col-6>
-                <h5>$<span>7884</span>/year</h5>
-              </ion-col>
-              <ion-col col-6>
-                  <button class="primary-btn-sm" (click)="goTopayment()">GET THIS PLAN</button>
-              </ion-col>
-            </ion-row>
+                <h5 *ngIf="!subscriptionDetails.subscription_end_date" ><span>{{subscriptionDetails.data?.price | currency}}</span>/Year</h5>
+                
+                <!-- [disabled]="subscriptionDetails.subscription_end_date" -->
+              <!-- *ngIf="!subscriptionDetails?.subscription_end_date" -->
+                
+
+              <!-- <ion-col *ngIf="subscriptionDetails.subscription_end_date"> -->
+                <h5 *ngIf="subscriptionDetails.subscription_end_date"><span> {{subscriptionDetails.data?.price | currency}}</span>/Year</h5>
+                <p *ngIf="subscriptionDetails.subscription_end_date"><strong>Expiration Date : </strong>{{subscriptionDetails?.subscription_end_date | date: shortDate}}</p>
+                <button *ngIf="!subscriptionDetails?.subscription_end_date" class="primary-btn-sm" (click)="goTopayment()"  >GET THIS PLAN</button>
           </ion-grid>
         </ion-card>
         
         <h6>PLAN DETAIL </h6>
-        <p>This plan offers the clinician palliative wound treatment options for wounds commonly seen in patients with life-limiting illness or at life’s end</p>
-        <h6>DISCLAIMER </h6>
-        <p>• Payment will be charged to iTunes Account at confirmation of purchase</p>
-        <p>• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period</p>
-        <p>• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal</p>
-        <p>• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase</p>
-        <p>• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable </p>
+        <p>This plan offers the clinician palliative wound treatment options for wounds commonly seen in patients with life-limiting illness or at life’s end.</p>
+        
       </div>
 
 </ion-content>

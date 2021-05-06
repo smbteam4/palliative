@@ -33,7 +33,7 @@ export class InterceptorProvider {
             if(evt.body.status==false){
                try{
                 // this.toastrService.error(evt.body.message);
-                alert(evt.body.message);
+                this.ApiProvider.showLongToast(evt.body.message);
 
             }catch(error){
               console.log(error)
@@ -54,7 +54,7 @@ export class InterceptorProvider {
             if(evt.body.status==false){
                try{
                 // this.toastrService.error(evt.body.message);
-                alert(evt.body.message);
+                this.ApiProvider.showLongToast(evt.body.message);
             }catch(error){
               // console.log(error)
             }

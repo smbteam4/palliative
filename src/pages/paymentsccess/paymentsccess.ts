@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams,Navbar, MenuController } from 'ionic-angular';
 import { HomePage } from '../home/home'
+
 
 /**
  * Generated class for the PaymentsccessPage page.
@@ -15,16 +16,24 @@ import { HomePage } from '../home/home'
   templateUrl: 'paymentsccess.html',
 })
 export class PaymentsccessPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild('navbar') navBar: Navbar;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menu:MenuController) {
+    this.menu.swipeEnable(false);
   }
+  ionViewDidEnter(){
+    this.navBar.backButtonClick = () => {
+      this.navCtrl.setRoot(HomePage);
+      ///here you can do wathever you want to replace the backbutton event
+    };
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentsccessPage');
   }
 
   goToHome(){
-    this.navCtrl.setRoot(HomePage);
+   
   }
 
 }
