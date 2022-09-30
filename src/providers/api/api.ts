@@ -1,13 +1,18 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, tap} from 'rxjs/operators';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
-import { AppSettings } from '../../app/app.settings'
-import { JwtHelperService } from '@auth0/angular-jwt';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+} from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { catchError, tap } from "rxjs/operators";
+import { Observable, Subject, ReplaySubject } from "rxjs";
+import { AppSettings } from "../../app/app.settings";
+import { JwtHelperService } from "@auth0/angular-jwt";
 // import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import {LoadingController} from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { ToastController } from "ionic-angular";
+import { LoadingController } from "ionic-angular";
+import { AlertController } from "ionic-angular";
 
 // import { of } from 'rxjs';
 /*
@@ -19,17 +24,16 @@ import { AlertController } from 'ionic-angular';
 @Injectable()
 export class ApiProvider {
   private jwtHelper = new JwtHelperService();
-  private baseUrl = AppSettings.api_url+'users/';
-  private baseUrl2 = AppSettings.api_url+'palliativeApp/' 
+  private baseUrl = AppSettings.api_url + "users/";
+  private baseUrl2 = AppSettings.api_url + "palliativeApp/";
   // private s3_url = environment.s3_upload;
   private loader: any;
-  constructor( private http: HttpClient, public loadingCtrl: LoadingController, public toastCtrl: ToastController, private alertCtrl: AlertController) {
-   
-   }
-
-
-  
-
+  constructor(
+    private http: HttpClient,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {}
 
   /**
    * without token
@@ -37,89 +41,105 @@ export class ApiProvider {
    * @param data -> data to be passed
    */
 
-  common_post(url,data){
+  common_post(url, data) {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token':'',
-        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-        'Pragma': 'no-cache',
-      })
-    }
+        "Content-Type": "application/json",
+        "x-access-token": "",
+        "Cache-Control":
+          "no-cache, no-store, must-revalidate, post-check=0, pre-check=0",
+        Pragma: "no-cache",
+      }),
+    };
     let options = {
-      headers: httpOptions.headers
+      headers: httpOptions.headers,
     };
 
     let cur_url = this.baseUrl + url;
-    return this.http.post<any>(cur_url, data, { headers: options.headers, observe: 'response' }).pipe((result)=>{
+    return this.http
+      .post<any>(cur_url, data, {
+        headers: options.headers,
+        observe: "response",
+      })
+      .pipe((result) => {
         // this.loader.dismiss();
         return result;
-     
-    })
+      });
   }
 
-  common_get_without_token(url,data){
+  common_get_without_token(url, data) {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-        'Pragma': 'no-cache',
-      })
-    }
-    let options = {
-      headers: httpOptions.headers
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Cache-Control":
+          "no-cache, no-store, must-revalidate, post-check=0, pre-check=0",
+        Pragma: "no-cache",
+      }),
     };
-    // let params = new URLSearchParams(); 
+    let options = {
+      headers: httpOptions.headers,
+    };
+    // let params = new URLSearchParams();
     let httpParams = new HttpParams();
     Object.keys(data).forEach(function (key) {
       // httpParams = httpParams.append(key, temp[key]);
-      httpParams = httpParams.append(key, data[key] )
+      httpParams = httpParams.append(key, data[key]);
     });
     // params.append("data", )
-      // params.append('search',data.search);
+    // params.append('search',data.search);
     let cur_url = this.baseUrl + url;
     // let options2 = { headers: options.headers, params: params };
-    return this.http.get<any>(cur_url,{headers:options.headers,observe:'response',params:httpParams}).pipe((result)=>{
+    return this.http
+      .get<any>(cur_url, {
+        headers: options.headers,
+        observe: "response",
+        params: httpParams,
+      })
+      .pipe((result) => {
         // this.loader.dismiss();
         return result;
-     
-    })
+      });
   }
 
-   /**
+  /**
    * without token
    * @param url -> api url
    * @param data -> data to be passed
    */
 
-  common_get(url,data){
+  common_get(url, data) {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-        'Pragma': 'no-cache',
-      })
-    }
-    let options = {
-      headers: httpOptions.headers
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Cache-Control":
+          "no-cache, no-store, must-revalidate, post-check=0, pre-check=0",
+        Pragma: "no-cache",
+      }),
     };
-    // let params = new URLSearchParams(); 
+    let options = {
+      headers: httpOptions.headers,
+    };
+    // let params = new URLSearchParams();
     let httpParams = new HttpParams();
     Object.keys(data).forEach(function (key) {
       // httpParams = httpParams.append(key, temp[key]);
-      httpParams = httpParams.append(key, data[key] )
+      httpParams = httpParams.append(key, data[key]);
     });
     // params.append("data", )
-      // params.append('search',data.search);
+    // params.append('search',data.search);
     let cur_url = this.baseUrl2 + url;
     // let options2 = { headers: options.headers, params: params };
-    return this.http.get<any>(cur_url,{headers:options.headers,observe:'response',params:httpParams}).pipe((result)=>{
+    return this.http
+      .get<any>(cur_url, {
+        headers: options.headers,
+        observe: "response",
+        params: httpParams,
+      })
+      .pipe((result) => {
         // this.loader.dismiss();
         return result;
-     
-    })
+      });
   }
-
 
   /**
    * without token
@@ -127,49 +147,55 @@ export class ApiProvider {
    * @param data -> data to be passed
    */
 
-  common_post_withToken(url,data){
-
+  common_post_withToken(url, data) {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-        'Pragma': 'no-cache'
-      })
-    }
-    let options = {
-      headers: httpOptions.headers
+        "Content-Type": "application/json",
+        "Cache-Control":
+          "no-cache, no-store, must-revalidate, post-check=0, pre-check=0",
+        Pragma: "no-cache",
+      }),
     };
-    let cur_url = '';
-    if(url == 'changePassword' || url == 'live_status')
+    let options = {
+      headers: httpOptions.headers,
+    };
+    let cur_url = "";
+    if (
+      url == "changePassword" ||
+      url == "live_status" ||
+      url == "deleteAccount"
+    )
       cur_url = this.baseUrl + url;
-    else 
-      cur_url = this.baseUrl2 + url;
+    else cur_url = this.baseUrl2 + url;
 
-      console.log(cur_url,'urlllll')
-    return this.http.post<any>(cur_url, data, { headers: options.headers, observe: 'response' }).pipe((result)=>{
+    console.log(cur_url, "urlllll");
+    return this.http
+      .post<any>(cur_url, data, {
+        headers: options.headers,
+        observe: "response",
+      })
+      .pipe((result) => {
         // this.loader.dismiss();
         return result;
-     
-    })
+      });
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
     // this.navCtrl.setRoot(LoginPage);
   }
 
-  public showLoader(){
+  public showLoader() {
     this.loader = this.loadingCtrl.create({
-      content: AppSettings.Loading_text
+      content: AppSettings.Loading_text,
     });
 
     this.loader.present();
     return this.loader;
   }
-  public hideLoader(){
+  public hideLoader() {
     this.loader.dismiss();
   }
-
 
   showLongToast(msg) {
     let toast = this.toastCtrl.create({
@@ -179,40 +205,38 @@ export class ApiProvider {
     toast.present();
   }
 
-
   showToastWithCloseButton() {
     const toast = this.toastCtrl.create({
-      message: 'Your files were successfully saved',
+      message: "Your files were successfully saved",
       showCloseButton: true,
-      closeButtonText: 'Ok'
+      closeButtonText: "Ok",
     });
     toast.present();
   }
 
-  public presentConfirm(msg,title) {
-   
-
-    return new Promise((resolve, reject) =>{
-      this.alertCtrl.create({
-        title: title,
-        message: msg,
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            handler: () => {
-              reject('canceled')
-            }
-          },
-          {
-            text: 'Ok',
-            handler: () => {
-             resolve('success')
-            }
-          }
-        ]
-      }).present();
-    })
+  public presentConfirm(msg, title) {
+    return new Promise((resolve, reject) => {
+      this.alertCtrl
+        .create({
+          title: title,
+          message: msg,
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel",
+              handler: () => {
+                reject("canceled");
+              },
+            },
+            {
+              text: "Ok",
+              handler: () => {
+                resolve("success");
+              },
+            },
+          ],
+        })
+        .present();
+    });
   }
-  
 }
