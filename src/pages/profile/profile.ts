@@ -1,13 +1,25 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform , ActionSheetController,Navbar} from 'ionic-angular';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { ApiProvider } from '../../providers/api/api';
-import { AppPluginProvider } from '../../providers/app-plugin/app-plugin';
-import { Crop } from '@ionic-native/crop';
-import { AppSettings } from '../../app/app.settings'
-import { toBase64String } from '@angular/compiler/src/output/source_map';
-import { AppCropperPage } from '../app-cropper/app-cropper'
-import {HomePage} from '../home/home'
+import { Component, ViewChild } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  Platform,
+  ActionSheetController,
+  Navbar,
+} from "ionic-angular";
+import {
+  Validators,
+  FormBuilder,
+  FormGroup,
+  FormControl,
+} from "@angular/forms";
+import { ApiProvider } from "../../providers/api/api";
+import { AppPluginProvider } from "../../providers/app-plugin/app-plugin";
+import { Crop } from "@ionic-native/crop";
+import { AppSettings } from "../../app/app.settings";
+import { toBase64String } from "@angular/compiler/src/output/source_map";
+import { AppCropperPage } from "../app-cropper/app-cropper";
+import { HomePage } from "../home/home";
 
 /**
  * Generated class for the ProfilePage page.
@@ -18,28 +30,42 @@ import {HomePage} from '../home/home'
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+  selector: "page-profile",
+  templateUrl: "profile.html",
 })
 export class ProfilePage {
-  public profile_Details:any;
-  public profileForm:FormGroup;
-  public image:any;
-  public baseUrl:any;
-  @ViewChild('navbar') navBar: Navbar;
-  constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder,  public apiProvider:ApiProvider, public AppPluginProvider:AppPluginProvider, private crop: Crop,public platform:Platform,public actionSheetCtrl: ActionSheetController) {
-    this.profile_Details = JSON.parse(localStorage.getItem('user'));
+  public profile_Details: any;
+  public profileForm: FormGroup;
+  public image: any;
+  public baseUrl: any;
+  @ViewChild("navbar") navBar: Navbar;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    fb: FormBuilder,
+    public apiProvider: ApiProvider,
+    public AppPluginProvider: AppPluginProvider,
+    private crop: Crop,
+    public platform: Platform,
+    public actionSheetCtrl: ActionSheetController
+  ) {
+    this.profile_Details = JSON.parse(localStorage.getItem("user"));
     this.baseUrl = AppSettings.api_url;
     this.profileForm = fb.group({
-      first_name:['',Validators.required],
-      email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-        last_name: ['', Validators.required]
-        // age: ['value', *validation function goes here*, *asynchronous validation function goes here*]
+      first_name: ["", Validators.required],
+      email: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"),
+        ]),
+      ],
+      last_name: ["", Validators.required],
+      // age: ['value', *validation function goes here*, *asynchronous validation function goes here*]
     });
-    this.image = '';
-
+    this.image = "";
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.navBar.backButtonClick = () => {
       this.navCtrl.setRoot(HomePage);
       ///here you can do wathever you want to replace the backbutton event
@@ -51,68 +77,73 @@ export class ProfilePage {
     this.setProfile();
   }
 
-  setProfile(){
+  setProfile() {
     this.profileForm.patchValue({
-      first_name:this.profile_Details.first_name,
-      last_name:this.profile_Details.last_name,
-      email:this.profile_Details.email
-    })
+      first_name: this.profile_Details.first_name,
+      last_name: this.profile_Details.last_name,
+      email: this.profile_Details.email,
+    });
   }
 
-
-  updateProfile(){
+  updateProfile() {
     // console.log(this.profileForm.valid,'validddddddddddddddd');
-   
-    if(this.image == '') {
-     
-      if(this.profileForm.valid){
+
+    if (this.image == "") {
+      if (this.profileForm.valid) {
         this.apiProvider.showLoader();
-        this.apiProvider.common_post_withToken('saveUser',this.profileForm.value).subscribe((result)=>{
-          if(result.body.status == true) {
-            this.image = '';
-            // this.profile_Details.profileImage = result.body.prof_image;
-            this.profile_Details.first_name = this.profileForm.value.first_name;
-            this.profile_Details.last_name =this.profileForm.value.last_name;
-            this.profile_Details.email = this.profileForm.value.email;
-            localStorage.setItem('user',JSON.stringify(this.profile_Details));
-            this.apiProvider.hideLoader();
-            this.apiProvider.showLongToast(result.body.message);
-           
-          } else {
-            this.apiProvider.hideLoader();
-            this.apiProvider.showLongToast(result.body.message);
-          }
-        })
+        this.apiProvider
+          .common_post_withToken("saveUser", this.profileForm.value)
+          .subscribe((result) => {
+            if (result.body.status == true) {
+              this.image = "";
+              // this.profile_Details.profileImage = result.body.prof_image;
+              this.profile_Details.first_name =
+                this.profileForm.value.first_name;
+              this.profile_Details.last_name = this.profileForm.value.last_name;
+              this.profile_Details.email = this.profileForm.value.email;
+              localStorage.setItem(
+                "user",
+                JSON.stringify(this.profile_Details)
+              );
+              this.apiProvider.hideLoader();
+              this.apiProvider.showLongToast(result.body.message);
+            } else {
+              this.apiProvider.hideLoader();
+              this.apiProvider.showLongToast(result.body.message);
+            }
+          });
       }
     } else {
-      
-      if(this.profileForm.valid){
+      if (this.profileForm.valid) {
         let data = {
-          prof_image:this.image,
-          email:this.profileForm.value.email,
-          first_name:this.profileForm.value.first_name,
-          last_name:this.profileForm.value.last_name
-        }
+          prof_image: this.image,
+          email: this.profileForm.value.email,
+          first_name: this.profileForm.value.first_name,
+          last_name: this.profileForm.value.last_name,
+        };
         this.apiProvider.showLoader();
-        this.apiProvider.common_post_withToken('saveUser',data).subscribe((result)=>{
-          if(result.body.status == true) {
-            this.image = '';
-            this.profile_Details.profileImage = result.body.prof_image;
-            this.profile_Details.first_name = data.first_name;
-            this.profile_Details.last_name = data.last_name;
-            this.profile_Details.email = data.email;
-            localStorage.setItem('user',JSON.stringify(this.profile_Details));
-            this.apiProvider.hideLoader();
-            this.apiProvider.showLongToast(result.body.message);
-          } else {
-            this.apiProvider.hideLoader();
-            this.apiProvider.showLongToast(result.body.message);
-          }
-      })
+        this.apiProvider
+          .common_post_withToken("saveUser", data)
+          .subscribe((result) => {
+            if (result.body.status == true) {
+              this.image = "";
+              this.profile_Details.profileImage = result.body.prof_image;
+              this.profile_Details.first_name = data.first_name;
+              this.profile_Details.last_name = data.last_name;
+              this.profile_Details.email = data.email;
+              localStorage.setItem(
+                "user",
+                JSON.stringify(this.profile_Details)
+              );
+              this.apiProvider.hideLoader();
+              this.apiProvider.showLongToast(result.body.message);
+            } else {
+              this.apiProvider.hideLoader();
+              this.apiProvider.showLongToast(result.body.message);
+            }
+          });
       }
-      
     }
-   
   }
 
   editPic() {
@@ -120,50 +151,52 @@ export class ProfilePage {
     // .then((sheetIndex: number)=> this.actionSheetSuccess(sheetIndex))
     // .catch((error)=> this.actionError(error));
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Choose Source',
+      title: "Choose Source",
       buttons: [
         {
-          text: 'Open Gallery',
-          icon:'md-images',
+          text: "Open Gallery",
+          icon: "md-images",
           handler: () => {
             this.actionSheetSuccess(2);
-          }
-        },{
-          text: 'Camera',
-          icon:'md-camera',
+          },
+        },
+        {
+          text: "Camera",
+          icon: "md-camera",
           handler: () => {
             this.actionSheetSuccess(1);
-          }
-        },{
-          text: 'Cancel',
-          role: 'destructive',
-          icon:'md-close-circle',
+          },
+        },
+        {
+          text: "Cancel",
+          role: "destructive",
+          icon: "md-close-circle",
           handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
+            console.log("Cancel clicked");
+          },
+        },
+      ],
     });
     actionSheet.present();
   }
-  
-  actionError(err){
+
+  actionError(err) {
     console.log(err);
     this.apiProvider.hideLoader();
   }
 
-  actionSheetSuccess(sheetIndex: number){ 
-    this.apiProvider.showLoader();   
+  actionSheetSuccess(sheetIndex: number) {
+    this.apiProvider.showLoader();
     this.AppPluginProvider.getImage(sheetIndex)
-    .then((fileUrl)=>this.imageCaptureSuccess(fileUrl))
-    .catch((error)=> this.actionError(error));
+      .then((fileUrl) => this.imageCaptureSuccess(fileUrl))
+      .catch((error) => this.actionError(error));
   }
 
-  imageCaptureSuccess(fileUrl){
+  imageCaptureSuccess(fileUrl) {
     // console.log(fileUrl,'dddddddddddddddddddddddddddd')
-    let dataUrl = 'data:image/jpeg;base64,'+ fileUrl;
+    let dataUrl = "data:image/jpeg;base64," + fileUrl;
     this.image = dataUrl;
-    this.profile_Details.profileImage= dataUrl;
+    this.profile_Details.profileImage = dataUrl;
     this.apiProvider.hideLoader();
     // this.apiProvider.common_post_withToken()
     // console.log(dataUrl,'dataurlllllllllllllllllllllllllllllll');
@@ -173,7 +206,7 @@ export class ProfilePage {
     //     // setTimeout(() =>{
     //       this.navCtrl.push(AppCropperPage, {fileUrl: dataUrl,aspect_ratio: aspect_ratio});
     //     // },10)
-        
+
     //   }
   }
   toBase64(file) {
@@ -181,8 +214,7 @@ export class ProfilePage {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
   }
-  
 }
